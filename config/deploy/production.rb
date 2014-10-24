@@ -17,7 +17,5 @@ role :db,  %w{tabber@tabber.fiit.stuba.sk}
 server 'tabber.fiit.stuba.sk', user: 'tabber', roles: %w{web app}
 
 set :ssh_options, {
-  keys: %w(/home/tabber/.ssh/id_rsa),
-  forward_agent: false,
-  auth_methods: %w(password)
+  keys: %w(/home/tabber/.ssh/id_rsa)
 }
