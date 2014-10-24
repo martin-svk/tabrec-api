@@ -12,3 +12,4 @@ gem 'thin', '~> 1.6.3'
 
 # Deployment tool
 gem 'capistrano', '~> 3.2.1'
+gem 'capistrano-rbenv', '~> 2.0.2'
