@@ -7,8 +7,10 @@ ruby '2.1.2'
 # Sinatra web framework
 gem 'sinatra', '~> 1.4.5'
 
-# Thin web server
-gem 'thin', '~> 1.6.3'
+group :development do
+  # Thin web server
+  gem 'thin', '~> 1.6.3'
+end
 
 # Deployment tool
 gem 'capistrano', '~> 3.2.1'
