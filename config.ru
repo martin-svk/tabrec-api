@@ -1,5 +1,3 @@
-#\ -p 8000
-
 require 'rubygems'
 require 'bundler'
 
