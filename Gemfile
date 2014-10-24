@@ -12,6 +12,11 @@ group :development do
   gem 'thin', '~> 1.6.3'
 end
 
+group :production do
+  # Passenger server
+  gem 'passenger', '~> 4.0.53'
+end
+
 # Deployment tool
 gem 'capistrano', '~> 3.2.1'
 gem 'capistrano-rbenv', '~> 2.0.2'
