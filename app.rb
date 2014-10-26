@@ -7,4 +7,13 @@ class TabRec < Sinatra::Base
   get '/' do
     'Hello from TabRec API!'
   end
+
+  get '/users/:id' do
+    user = User.find(params[:id])
+    "#{user.experience_level}" if user
+  end
+end
+
+class User < ActiveRecord::Base
+  validates_presence_of :experience_level
 end
