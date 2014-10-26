@@ -3,6 +3,6 @@ require 'bundler'
 
 Bundler.require
 
-require './app/tabrec'
+require File.dirname(__FILE__) + '/app'
 
 run TabRec
