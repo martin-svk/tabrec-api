@@ -44,7 +44,7 @@ namespace :deploy do
   end
 
   desc 'Migrate database'
-  taks :migrate do
+  task :migrate do
     on roles(:app), in: :sequence, wait: 5 do
       execute :rake, "db:migrate"
     end
