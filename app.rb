@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require './config/environments'
+require 'sinatra/activerecord'
 
 class TabRec < Sinatra::Base
   register Sinatra::ActiveRecordExtension
