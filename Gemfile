@@ -6,14 +6,14 @@ ruby '2.1.3'
 
 # Sinatra web framework
 gem 'sinatra', '~> 1.4.5'
+# Sinatra contribs including json
+gem 'sinatra-contrib', '~> 1.4.2'
 # Activerecord ORM
 gem 'activerecord', '~> 4.1.6'
 # Sinatra helpers and rake tasks
 gem 'sinatra-activerecord', '~> 2.0.2'
 # PostgreSQL adapter
 gem 'pg', '~> 0.17.1'
-# json render
-gem 'json', '~> 1.8.1'
 # Sinatra's rails console
 gem 'tux', '~> 0.3.0'
 

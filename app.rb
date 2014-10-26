@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/activerecord'
+require 'sinatra/json'
 
 class TabRec < Sinatra::Base
   register Sinatra::ActiveRecordExtension
@@ -10,7 +11,7 @@ class TabRec < Sinatra::Base
 
   get '/users/:id' do
     user = User.find(params[:id])
-    render json: user
+    json user
   end
 end
 
