@@ -12,6 +12,8 @@ gem 'activerecord', '~> 4.1.6'
 gem 'sinatra-activerecord', '~> 2.0.2'
 # PostgreSQL adapter
 gem 'pg', '~> 0.17.1'
+# json render
+gem 'json', '~> 1.8.1'
 
 group :development do
   # Thin web server
