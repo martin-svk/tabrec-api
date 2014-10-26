@@ -14,17 +14,12 @@ gem 'sinatra-activerecord', '~> 2.0.2'
 gem 'pg', '~> 0.17.1'
 # json render
 gem 'json', '~> 1.8.1'
+# Sinatra's rails console
+gem 'tux', '~> 0.3.0'
 
 group :development do
   # Thin web server
   gem 'thin', '~> 1.6.3'
-  # Sinatra's rails console
-  gem 'tux', '~> 0.3.0'
-end
-
-group :production do
-  # Passenger server
-  gem 'passenger', '~> 4.0.53'
 end
 
 # Deployment tool
