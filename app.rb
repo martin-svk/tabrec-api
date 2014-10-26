@@ -10,7 +10,7 @@ class TabRec < Sinatra::Base
 
   get '/users/:id' do
     user = User.find(params[:id])
-    "#{user.experience_level}" if user
+    render json: user
   end
 end
 
