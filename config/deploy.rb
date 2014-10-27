@@ -43,15 +43,26 @@ namespace :deploy do
     end
   end
 
-  desc 'Migrate database'
-  task :migrate do
-    on roles(:app), in: :sequence, wait: 5 do
-      within current_path do
-        execute :rake, "db:migrate"
+  namespace :db do
+    desc 'Migrate database'
+    task :migrate do
+      on roles(:app), in: :sequence, wait: 5 do
+        within current_path do
+          execute :rake, "db:migrate"
+        end
+      end
+    end
+
+    desc 'Reset database'
+    task :reset do
+      on roles(:app), in: :sequence, wait: 5 do
+        within current_path do
+          execute :rake, "db:reset"
+        end
       end
     end
   end
 
-  after :publishing, :migrate
-  after :migrate, :restart
+  after :publishing, 'db:migrate'
+  after 'db:migrate', :restart
 end
