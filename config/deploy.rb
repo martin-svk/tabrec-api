@@ -14,7 +14,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 set :keep_releases, 3
 
 # Rack environment
-set :rack_env, 'production'
+set :rack_env, :production
 
 namespace :deploy do
   desc 'Restart application'
@@ -30,7 +30,7 @@ namespace :deploy do
     task :migrate do
       on roles(:app), in: :sequence, wait: 5 do
         within current_path do
-          execute :rake, "db:migrate"
+          execute :rake, "db:migrate RACK_ENV=production"
         end
       end
     end
@@ -39,7 +39,7 @@ namespace :deploy do
     task :seed do
       on roles(:app), in: :sequence, wait: 5 do
         within current_path do
-          execute :rake, "db:seed"
+          execute :rake, "db:seed RACK_ENV=production"
         end
       end
     end
