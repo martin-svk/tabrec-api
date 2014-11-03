@@ -1,5 +1,5 @@
 # ======================================================================================================================
-# Require declarations
+# Requires
 # ======================================================================================================================
 
 require 'sinatra/base'
@@ -7,7 +7,7 @@ require 'sinatra/activerecord'
 require 'sinatra/json'
 
 # ======================================================================================================================
-# Main APP
+# Controllers
 # ======================================================================================================================
 
 class TabRec < Sinatra::Base
@@ -24,9 +24,23 @@ class TabRec < Sinatra::Base
 end
 
 # ======================================================================================================================
-# ActiveRecord models
+# Models
 # ======================================================================================================================
 
+##
+# This table contains usage logs from tabrec extension.
+# On specific :event, we log the time and other important attributes in that moment.
+# The purpose is to get know how people use tabs and provide the best recomendation afterwards.
+#
+class UsageLog < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :event
+end
+
+##
+# This table contains recomendation logs from tabrec extension.
+# On specific :event, we make an :advice and the :user can accept or reject it (:resolution).
+#
 class Log < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
@@ -41,6 +55,10 @@ class User < ActiveRecord::Base
   validates :rec_mode, presence: true, inclusion: { in: %w(interactive semi_interactive aggressive) }
 end
 
+##
+# The lowest level event, they are predefined (seeded).
+# Example: tab_close, tab_open
+#
 class Event < ActiveRecord::Base
   has_many :logs
 
