@@ -49,6 +49,11 @@ class TabRec < Sinatra::Base
       halt 400, 'Bad data format'
     end
   end
+
+  get '/usage_logs/:id' do
+    ul = UsageLog.find(params[:id])
+    json ul
+  end
 end
 
 # ======================================================================================================================
