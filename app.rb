@@ -36,8 +36,8 @@ class TabRec < Sinatra::Base
         row = log[1]
 
         tab_id = row[:tab_id]
-        event_id = Event.find(name: row[:event]).first.id
-        timestamp = Time.at(row[:timestamp])
+        event_id = Event.find_by(name: row[:event]).id
+        timestamp = row[:timestamp]
 
         ul = UsageLog.new(tab_id: tab_id, event_id: event_id, timestamp: timestamp)
         ul.save
