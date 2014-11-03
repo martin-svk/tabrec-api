@@ -1,6 +1,6 @@
 # More will be defined later
-EVENTS = %w(TAB_OPEN TAB_CLOSE TAB_RELOAD)
-DESCS = ['New tab was opened.', 'Tab was closed.', 'Tab was reloaded.']
+EVENTS = %w(TAB_CREATE TAB_REMOVE TAB_ACTIVATE TAB_RELOAD)
+DESCS = ['New tab was opened', 'Tab was closed', 'Tab was focused', 'Tab was reloaded.']
 
 # Clear events table
 if Event.count != EVENTS.size
