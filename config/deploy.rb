@@ -13,6 +13,9 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 # Default value for keep_releases is 5
 set :keep_releases, 3
 
+# Rack environment
+set :rack_env, 'production'
+
 namespace :deploy do
   desc 'Restart application'
   task :restart do
@@ -27,12 +30,23 @@ namespace :deploy do
     task :migrate do
       on roles(:app), in: :sequence, wait: 5 do
         within current_path do
-          execute :rake, "db:migrate RACK_ENV=production"
+          execute :rake, "db:migrate"
+        end
+      end
+    end
+
+    desc 'Seed databse'
+    task :seed do
+      on roles(:app), in: :sequence, wait: 5 do
+        within current_path do
+          execute :rake, "db:seed"
         end
       end
     end
   end
 
+  # Running order
   after :publishing, 'db:migrate'
-  after 'db:migrate', :restart
+  after 'db:migrate', 'db:seed'
+  after 'db:seed', :restart
 end
