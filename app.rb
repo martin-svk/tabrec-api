@@ -21,6 +21,11 @@ class TabRec < Sinatra::Base
     user = User.find(params[:id])
     json user
   end
+
+  get '/events' do
+    events = Event.all
+    json events
+  end
 end
 
 # ======================================================================================================================
