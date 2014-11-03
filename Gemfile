@@ -16,6 +16,8 @@ gem 'sinatra-activerecord', '~> 2.0.2'
 gem 'pg', '~> 0.17.1'
 # Sinatra's rails console
 gem 'tux', '~> 0.3.0'
+# Pry inspection
+gem 'pry', '~> 0.10.1'
 
 group :development do
   # Thin web server
