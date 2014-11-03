@@ -26,6 +26,29 @@ class TabRec < Sinatra::Base
     events = Event.all
     json events
   end
+
+  post '/usage_logs' do
+    data = params[:data]
+
+    if data
+      # Data format [0, {tab_id: 123, ... }, ...]
+      data.each do |log|
+        row = log[1]
+
+        tab_id = row[:tab_id]
+        event_id = Event.find(name: row[:event]).id
+        timestamp = Time.at(row[:timestamp])
+
+        ul = UsageLog.new(tab_id: tab_id, event_id: event_id, timestamp: timestamp)
+        ul.save
+      end
+
+      status 201
+      json message: 'Created'
+    else
+      halt 400, 'Bad data format'
+    end
+  end
 end
 
 # ======================================================================================================================
