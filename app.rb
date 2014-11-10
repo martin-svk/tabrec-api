@@ -83,6 +83,7 @@ end
 
 class User < ActiveRecord::Base
   has_many :logs
+  has_many :usage_logs
 
   validates :experience, presence: true, inclusion: { in: %w(beginner advanced expert) }
   validates :rec_mode, presence: true, inclusion: { in: %w(interactive semi_interactive aggressive) }
@@ -94,6 +95,7 @@ end
 #
 class Event < ActiveRecord::Base
   has_many :logs
+  has_many :usage_logs
 
   validates :name, presence: true
   validates :desc, presence: true
