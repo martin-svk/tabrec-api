@@ -36,17 +36,17 @@ class TabRec < Sinatra::Base
         row = log[1]
 
         # Mandatory
-        tab_id = row.fetch :tab_id
-        window_id = row.fetch :window_id
-        timestamp = row.fetch :timestamp
-        event_id = Event.find_by(name: row.fetch(:event)).id
+        tab_id = row.fetch 'tab_id'
+        window_id = row.fetch 'window_id'
+        timestamp = row.fetch 'timestamp'
+        event_id = Event.find_by(name: row.fetch('event')).id
 
         # Optional
-        index_from = row.fetch(:index_from, nil)
-        index_to = row.fetch(:index_to, nil)
+        index_from = row.fetch('index_from', nil)
+        index_to = row.fetch('index_to', nil)
 
-        ul = UsageLog.new(tab_id: tab_id, event_id: event_id, timestamp: timestamp)
-        ul.save
+        UsageLog.create(tab_id: tab_id, event_id: event_id, window_id: window_id,
+                        index_from: index_from, index_to: index_to, timestamp: timestamp)
       end
 
       status 201
