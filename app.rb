@@ -35,9 +35,15 @@ class TabRec < Sinatra::Base
       data.each do |log|
         row = log[1]
 
-        tab_id = row[:tab_id]
-        event_id = Event.find_by(name: row[:event]).id
-        timestamp = row[:timestamp]
+        # Mandatory
+        tab_id = row.fetch :tab_id
+        window_id = row.fetch :window_id
+        timestamp = row.fetch :timestamp
+        event_id = Event.find_by(name: row.fetch(:event)).id
+
+        # Optional
+        index_from = row.fetch(:index_from, nil)
+        index_to = row.fetch(:index_to, nil)
 
         ul = UsageLog.new(tab_id: tab_id, event_id: event_id, timestamp: timestamp)
         ul.save
