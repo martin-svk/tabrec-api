@@ -44,8 +44,9 @@ class TabRec < Sinatra::Base
         # Optional
         index_from = row.fetch('index_from', nil)
         index_to = row.fetch('index_to', nil)
+        url = row.fetch('url', nil)
 
-        UsageLog.create(tab_id: tab_id, event_id: event_id, window_id: window_id,
+        UsageLog.create(tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
                         index_from: index_from, index_to: index_to, timestamp: timestamp)
       end
 
