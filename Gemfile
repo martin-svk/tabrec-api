@@ -14,14 +14,14 @@ gem 'activerecord', '~> 4.1.6'
 gem 'sinatra-activerecord', '~> 2.0.2'
 # PostgreSQL adapter
 gem 'pg', '~> 0.17.1'
-# Sinatra's rails console
-gem 'tux', '~> 0.3.0'
-# Pry inspection
-gem 'pry', '~> 0.10.1'
 
 group :development do
   # Thin web server
   gem 'thin', '~> 1.6.3'
+  # Pry inspection
+  gem 'pry', '~> 0.10.1'
+  # Sinatra's rails console
+  gem 'tux', '~> 0.3.0'
 end
 
 # Deployment tool
