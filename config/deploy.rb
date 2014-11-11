@@ -20,7 +20,6 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
@@ -28,7 +27,7 @@ namespace :deploy do
   namespace :db do
     desc 'Migrate database'
     task :migrate do
-      on roles(:app), in: :sequence, wait: 5 do
+      on roles(:db), in: :sequence, wait: 5 do
         within current_path do
           execute :rake, "db:migrate RACK_ENV=production"
         end
@@ -37,7 +36,7 @@ namespace :deploy do
 
     desc 'Seed databse'
     task :seed do
-      on roles(:app), in: :sequence, wait: 5 do
+      on roles(:db), in: :sequence, wait: 5 do
         within current_path do
           execute :rake, "db:seed RACK_ENV=production"
         end
