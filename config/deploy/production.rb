@@ -14,7 +14,7 @@ role :db,  %w{tabber@tabber.fiit.stuba.sk}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server 'tabber.fiit.stuba.sk', user: 'tabber', roles: %w{web app}
+server 'tabber.fiit.stuba.sk', user: 'tabber', roles: %w{web app db}
 
 set :ssh_options, {
   keys: %w(/home/tabber/.ssh/id_rsa)
