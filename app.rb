@@ -36,6 +36,7 @@ class TabRec < Sinatra::Base
         row = log[1]
 
         # Mandatory
+        user_id = row.fetch 'user_id'
         tab_id = row.fetch 'tab_id'
         window_id = row.fetch 'window_id'
         timestamp = row.fetch 'timestamp'
@@ -46,7 +47,7 @@ class TabRec < Sinatra::Base
         index_to = row.fetch('index_to', nil)
         url = row.fetch('url', nil)
 
-        UsageLog.create(tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
+        UsageLog.create(user_id: user_id, tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
                         index_from: index_from, index_to: index_to, timestamp: timestamp)
       end
 
