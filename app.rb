@@ -19,6 +19,15 @@ class TabRec < Sinatra::Base
     json message: 'Hello from TabRec API!'
   end
 
+  get '/users' do
+    json User.all
+  end
+
+  get '/users/:id' do
+    user = User.find(params[:id])
+    json user
+  end
+
   # Create user
   post '/users' do
     if user = User.create(params[:user])
