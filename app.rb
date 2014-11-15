@@ -37,6 +37,15 @@ class TabRec < Sinatra::Base
     end
   end
 
+  put '/users/:id' do
+    user = User.find(params[:id])
+    if user.update(params[:user])
+      json user
+    else
+      json user.errors
+    end
+  end
+
   # Create usage log (logs)
   post '/usage_logs' do
     data = params[:data]
