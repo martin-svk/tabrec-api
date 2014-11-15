@@ -68,6 +68,12 @@ class TabRec < Sinatra::Base
       halt 400, 'Bad data format'
     end
   end
+
+  get '/usage_logs' do
+    # Last 300 logs
+    ul = UsageLog.order(created_at: :desc).limit(300)
+    json ul
+  end
 end
 
 # ======================================================================================================================
