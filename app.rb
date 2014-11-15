@@ -13,20 +13,22 @@ require 'sinatra/json'
 class TabRec < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
+  # Home page
   get '/' do
+    # Redirect to chrome web store
     json message: 'Hello from TabRec API!'
   end
 
-  get '/users/:id' do
-    user = User.find(params[:id])
-    json user
+  # Create user
+  post '/users' do
+    if user = User.create(params[:user])
+      json user
+    else
+      json user.errors
+    end
   end
 
-  get '/events' do
-    events = Event.all
-    json events
-  end
-
+  # Create usage log (logs)
   post '/usage_logs' do
     data = params[:data]
 
@@ -56,11 +58,6 @@ class TabRec < Sinatra::Base
     else
       halt 400, 'Bad data format'
     end
-  end
-
-  get '/usage_logs/:id' do
-    ul = UsageLog.find(params[:id])
-    json ul
   end
 end
 
