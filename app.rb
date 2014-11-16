@@ -15,8 +15,8 @@ class TabRec < Sinatra::Base
 
   # Home page
   get '/' do
-    # Redirect to chrome web store
-    json message: 'Hello from TabRec API!'
+    # Redirect to chrome web store page for Tabrec
+    redirect "https://chrome.google.com/webstore/detail/tabrec/namcfnibfapnjbnlfcijidilkgeaogde"
   end
 
   get '/users' do
