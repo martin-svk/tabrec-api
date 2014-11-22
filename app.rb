@@ -114,8 +114,8 @@ class User < ActiveRecord::Base
   has_many :logs
   has_many :usage_logs
 
-  validates :experience, presence: true, inclusion: { in: %w(beginner advanced expert) }
-  validates :rec_mode, presence: true, inclusion: { in: %w(interactive semi-interactive aggressive) }
+  validates :experience, presence: true, inclusion: { in: %w(default beginner advanced expert) }
+  validates :rec_mode, presence: true, inclusion: { in: %w(default interactive semi-interactive aggressive) }
 end
 
 ##
