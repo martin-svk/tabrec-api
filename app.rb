@@ -39,7 +39,17 @@ class TabRec < Sinatra::Base
 
   put '/users/:id' do
     user = User.find(params[:id])
-    if user.update(params[:user])
+
+    new_experience = params.fetch('user').fetch('experience')
+    user.experience = new_experience if new_experience
+
+    new_rec_mode = params.fetch('user').fetch('rec_mode')
+    user.rec_mode = new_rec_mode if new_rec_mode
+
+    new_other_plugins = params.fetch('user').fetch('other_plugins', 'false') == 'true' ? true : false
+    user.other_plugins = new_other_plugins
+
+    if user.save
       json user
     else
       json user.errors
