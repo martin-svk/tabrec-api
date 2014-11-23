@@ -19,13 +19,9 @@ class TabRec < Sinatra::Base
     redirect "https://chrome.google.com/webstore/detail/tabrec/namcfnibfapnjbnlfcijidilkgeaogde"
   end
 
+  # Get all users
   get '/users' do
     json User.all
-  end
-
-  get '/users/:id' do
-    user = User.find(params[:id])
-    json user
   end
 
   # Create user
@@ -37,6 +33,7 @@ class TabRec < Sinatra::Base
     end
   end
 
+  # Update user
   put '/users/:id' do
     user = User.find(params[:id])
 
@@ -56,12 +53,11 @@ class TabRec < Sinatra::Base
     end
   end
 
-  # Create usage log (logs)
+  # Create usage logs
   post '/usage_logs' do
     data = params[:data]
 
     if data
-      # Data format [0, {tab_id: 123, ... }, ...]
       data.each do |log|
         row = log[1]
 
@@ -70,6 +66,7 @@ class TabRec < Sinatra::Base
         tab_id = row.fetch 'tab_id'
         window_id = row.fetch 'window_id'
         timestamp = row.fetch 'timestamp'
+        session_id = row.fetch 'session_id'
         event_id = Event.find_by(name: row.fetch('event')).id
 
         # Optional
@@ -78,7 +75,7 @@ class TabRec < Sinatra::Base
         url = row.fetch('url', nil)
 
         UsageLog.create(user_id: user_id, tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
-                        index_from: index_from, index_to: index_to, timestamp: timestamp)
+                        session_id: session_id, index_from: index_from, index_to: index_to, timestamp: timestamp)
       end
 
       status 201
@@ -88,8 +85,8 @@ class TabRec < Sinatra::Base
     end
   end
 
+  # Get last xy usage logs
   get '/usage_logs' do
-    # Last 300 logs
     ul = UsageLog.order(created_at: :desc).limit(300)
     json ul
   end
