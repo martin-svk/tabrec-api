@@ -74,10 +74,12 @@ class TabRec < Sinatra::Base
         index_to = row.fetch('index_to', nil)
         url = row.fetch('url', nil)
         domain = row.fetch('domain', nil)
+        subdomain = row.fetch('subdomain', nil)
         path = row.fetch('path', nil)
 
-        UsageLog.create(user_id: user_id, tab_id: tab_id, event_id: event_id, window_id: window_id, url: url, domain: domain,
-                        path: path, session_id: session_id, index_from: index_from, index_to: index_to, timestamp: timestamp)
+        UsageLog.create(user_id: user_id, tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
+                        domain: domain, subdomain: subdomain, path: path, session_id: session_id,
+                        index_from: index_from, index_to: index_to, timestamp: timestamp)
       end
 
       status 201
