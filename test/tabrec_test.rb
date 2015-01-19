@@ -1,6 +1,6 @@
-require File.expand_path '../test_helper.rb', __FILE__
+require_relative './test_helper.rb'
 
-class TabrecTest < MiniTest::Unit::TestCase
+class TabrecTest < MiniTest::Test
 
   include Rack::Test::Methods
 
