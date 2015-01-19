@@ -13,18 +13,21 @@ require 'sinatra/json'
 class TabRec < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
-  # Home page
+  # Redirect to Chrome store page
   get '/' do
-    # Redirect to chrome web store page for Tabrec
     redirect "https://chrome.google.com/webstore/detail/tabrec/namcfnibfapnjbnlfcijidilkgeaogde"
   end
 
-  # Get all users
+  # --------------------------------
+  # Users
+  # --------------------------------
+
+  # Index
   get '/users' do
     json User.all
   end
 
-  # Create user
+  # Create
   post '/users' do
     if user = User.create(params[:user])
       json user
@@ -33,7 +36,7 @@ class TabRec < Sinatra::Base
     end
   end
 
-  # Update user
+  # Update
   put '/users/:id' do
     user = User.find(params[:id])
 
@@ -53,7 +56,19 @@ class TabRec < Sinatra::Base
     end
   end
 
-  # Create usage logs
+  # User browsing stats
+  get '/stats' do
+    # Browsing stats for extension popup window
+    # Divided by last week / all time
+    # And contains tabs/windows created
+    # etc...
+  end
+
+  # --------------------------------
+  # Usage Logs
+  # --------------------------------
+
+  # Bulk create
   post '/usage_logs' do
     data = params[:data]
 
@@ -77,19 +92,22 @@ class TabRec < Sinatra::Base
         subdomain = row.fetch('subdomain', nil)
         path = row.fetch('path', nil)
 
-        UsageLog.create(user_id: user_id, tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
+        if UsageLog.create(user_id: user_id, tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
                         domain: domain, subdomain: subdomain, path: path, session_id: session_id,
                         index_from: index_from, index_to: index_to, timestamp: timestamp)
+          status 201
+          json message: 'Created'
+        else
+          status 422
+          json message: 'Unprocessable data'
+        end
       end
-
-      status 201
-      json message: 'Created'
     else
       halt 400, 'Bad data format'
     end
   end
 
-  # Get last xy usage logs
+  # Index (last 300)
   get '/usage_logs' do
     ul = UsageLog.order(created_at: :desc).limit(300)
     json ul
