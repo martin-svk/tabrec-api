@@ -15,7 +15,7 @@ class TabRec < Sinatra::Base
 
   # Redirect to Chrome store page
   get '/' do
-    redirect "https://chrome.google.com/webstore/detail/tabrec/namcfnibfapnjbnlfcijidilkgeaogde"
+    redirect 'https://chrome.google.com/webstore/detail/tabrec/namcfnibfapnjbnlfcijidilkgeaogde'
   end
 
   # --------------------------------
