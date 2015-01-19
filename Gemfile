@@ -24,6 +24,10 @@ group :development do
   gem 'tux', '~> 0.3.0'
 end
 
+group :test do
+  gem 'rack-test', '~> 0.6.2'
+end
+
 # Deployment tool
 gem 'capistrano', '~> 3.2.1'
 gem 'capistrano-rbenv', '~> 2.0.2'
