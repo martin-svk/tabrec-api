@@ -22,6 +22,12 @@ class TabRec < Sinatra::Base
   # Users
   # --------------------------------
 
+  # Show
+  get '/users/:id' do
+    user = User.find(params[:id])
+    json user
+  end
+
   # Index
   get '/users' do
     json User.all
@@ -57,12 +63,12 @@ class TabRec < Sinatra::Base
   end
 
   # User browsing stats
-  get '/stats' do
+  # get '/stats' do
     # Browsing stats for extension popup window
     # Divided by last week / all time
     # And contains tabs/windows created
     # etc...
-  end
+  # end
 
   # --------------------------------
   # Usage Logs
