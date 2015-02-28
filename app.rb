@@ -7,7 +7,7 @@ require 'sinatra/activerecord'
 require 'sinatra/json'
 
 # ======================================================================================================================
-# Controllers
+# Controller
 # ======================================================================================================================
 
 class TabRec < Sinatra::Base
@@ -18,9 +18,9 @@ class TabRec < Sinatra::Base
     redirect 'https://chrome.google.com/webstore/detail/tabrec/namcfnibfapnjbnlfcijidilkgeaogde'
   end
 
-  # --------------------------------
+  # --------------------------------------------------------------------------------------------------------------------
   # Users
-  # --------------------------------
+  # --------------------------------------------------------------------------------------------------------------------
 
   # Show
   get '/users/:id' do
@@ -76,9 +76,9 @@ class TabRec < Sinatra::Base
     json bstats
   end
 
-  # --------------------------------
+  # --------------------------------------------------------------------------------------------------------------------
   # Usage Logs
-  # --------------------------------
+  # --------------------------------------------------------------------------------------------------------------------
 
   # Bulk create
   post '/usage_logs' do
@@ -131,9 +131,9 @@ end
 # ======================================================================================================================
 
 ##
-# This table contains usage logs from tabrec extension.
+# This table contains usage logs from TabRec extension.
 # On specific :event, we log the time and other important attributes in that moment.
-# The purpose is to get know how people use tabs and provide the best recomendation afterwards.
+# The purpose is to get know how people use tabs and provide the best recommendation afterwards.
 #
 class UsageLog < ActiveRecord::Base
   belongs_to :user
@@ -141,7 +141,7 @@ class UsageLog < ActiveRecord::Base
 end
 
 ##
-# This table contains recomendation logs from tabrec extension.
+# This table contains recommendation logs from TabRec extension.
 # On specific :event, we make an :advice and the :user can accept or reject it (:resolution).
 #
 class Log < ActiveRecord::Base
@@ -151,6 +151,9 @@ class Log < ActiveRecord::Base
   belongs_to :resolution
 end
 
+##
+# This table represents extension user.
+#
 class User < ActiveRecord::Base
   has_many :logs
   has_many :usage_logs
@@ -189,7 +192,7 @@ end
 
 ##
 # The lowest level event, they are predefined (seeded).
-# Example: tab_close, tab_open
+# Example: TAB_CLOSE, TAB_CREATE
 #
 class Event < ActiveRecord::Base
   has_many :logs
@@ -199,6 +202,9 @@ class Event < ActiveRecord::Base
   validates :desc, presence: true
 end
 
+##
+# Advice used in particular recommendation
+#
 class Advice < ActiveRecord::Base
   has_many :logs
 
@@ -206,6 +212,9 @@ class Advice < ActiveRecord::Base
   validates :desc, presence: true
 end
 
+##
+# Resolution of the recommendation, can be one of ACCEPTED, REJECTED, AUTOMATIC_EXECUTION
+#
 class Resolution < ActiveRecord::Base
   has_many :logs
 
