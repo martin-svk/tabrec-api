@@ -75,15 +75,11 @@ class TabRec < Sinatra::Base
   # -----------------------------------
   get '/stats/browsing/:id' do
     user = User.find(params[:id])
-    if user
-      bstats = {
-        weekly: user.weekly_bstats,
-        alltime: user.bstats
-      }
-      json bstats
-    else
-      halt 404, 'User not found'
-    end
+    bstats = {
+      weekly: user.weekly_bstats,
+      alltime: user.bstats
+    }
+    json bstats
   end
 
   # --------------------------------------------------------------------------------------------------------------------
