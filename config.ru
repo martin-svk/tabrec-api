@@ -5,4 +5,4 @@ Bundler.require
 
 require File.dirname(__FILE__) + '/app'
 
-run TabRec
+run TabRec.new
