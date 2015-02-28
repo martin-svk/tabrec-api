@@ -116,8 +116,7 @@ class TabRec < Sinatra::Base
                         domain: domain, subdomain: subdomain, path: path, session_id: session_id,
                         index_from: index_from, index_to: index_to, timestamp: timestamp)
 
-          status 201
-          json message: 'Created'
+          halt 201, 'Success'
         else
           halt 422, 'Unprocessable data'
         end
