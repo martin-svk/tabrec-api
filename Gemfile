@@ -2,18 +2,18 @@
 source 'https://rubygems.org'
 
 # Ruby
-ruby '2.1.3'
+ruby '2.2.0'
 
 # Sinatra web framework
 gem 'sinatra', '~> 1.4.5'
 # Sinatra contribs including json
 gem 'sinatra-contrib', '~> 1.4.2'
 # Activerecord ORM
-gem 'activerecord', '~> 4.1.6'
+gem 'activerecord', '~> 4.2.0'
 # Sinatra helpers and rake tasks
-gem 'sinatra-activerecord', '~> 2.0.2'
+gem 'sinatra-activerecord', '~> 2.0.5'
 # PostgreSQL adapter
-gem 'pg', '~> 0.17.1'
+gem 'pg', '~> 0.18.1'
 
 group :development do
   # Thin web server
@@ -25,10 +25,10 @@ group :development do
 end
 
 group :test do
-  gem 'rack-test', '~> 0.6.2'
+  gem 'rack-test', '~> 0.6.3'
 end
 
 # Deployment tool
-gem 'capistrano', '~> 3.2.1'
-gem 'capistrano-rbenv', '~> 2.0.2'
-gem 'capistrano-bundler', '~> 1.1.3'
+gem 'capistrano', '~> 3.3.5'
+gem 'capistrano-rbenv', '~> 2.0.3'
+gem 'capistrano-bundler', '~> 1.1.4'
