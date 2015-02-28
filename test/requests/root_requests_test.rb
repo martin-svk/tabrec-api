@@ -1,6 +1,6 @@
-require_relative './test_helper.rb'
+require_relative '../test_helper.rb'
 
-class TabrecTest < MiniTest::Test
+class RootRequestsTest < MiniTest::Test
   def test_chrome_store_redirect
     get '/'
     assert_equal 302, last_response.status
