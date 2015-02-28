@@ -25,26 +25,32 @@ class TabRec < Sinatra::Base
   # --------------------------------------------------------------------------------------------------------------------
 
   # Show
+  # -----------------------------------
   get '/users/:id' do
     user = User.find(params[:id])
     json user
   end
 
   # Index
+  # -----------------------------------
   get '/users' do
     json User.all
   end
 
   # Create
+  # -----------------------------------
   post '/users' do
     if user = User.create(params[:user])
+      status 201
       json user
     else
+      status 422
       json user.errors
     end
   end
 
   # Update
+  # -----------------------------------
   put '/users/:id' do
     user = User.find(params[:id])
 
@@ -60,22 +66,25 @@ class TabRec < Sinatra::Base
     if user.save
       json user
     else
+      status 422
       json user.errors
     end
   end
 
   # User browsing stats
-  get '/bstats/:id' do
+  # -----------------------------------
+  get 'stats/browsing/:id' do
     user = User.find(params[:id])
-
-    # Getting stats
-    bstats = {
-      weekly: user.weekly_bstats,
-      alltime: user.bstats
-    }
-
-    # Sending
-    json bstats
+    if user
+      bstats = {
+        weekly: user.weekly_bstats,
+        alltime: user.bstats
+      }
+      json bstats
+    else
+      status 404
+      json { message: 'User not found' }
+    end
   end
 
   # --------------------------------------------------------------------------------------------------------------------
@@ -83,46 +92,47 @@ class TabRec < Sinatra::Base
   # --------------------------------------------------------------------------------------------------------------------
 
   # Bulk create
-  post '/usage_logs' do
-    data = params[:data]
+  post 'logs/usage' do
+    ulogs = params[:data]
 
-    if data
-      data.each do |log|
-        row = log[1]
+    if ulogs
+      ulogs.each do |ulog|
+        # TODO: find out why ulog is an array
+        one_log = ulog[1]
 
         # Mandatory
-        user_id = row.fetch 'user_id'
-        tab_id = row.fetch 'tab_id'
-        window_id = row.fetch 'window_id'
-        timestamp = row.fetch 'timestamp'
-        session_id = row.fetch 'session_id'
-        event_id = Event.find_by(name: row.fetch('event')).id
+        user_id = one_log.fetch 'user_id'
+        tab_id = one_log.fetch 'tab_id'
+        window_id = one_log.fetch 'window_id'
+        timestamp = one_log.fetch 'timestamp'
+        session_id = one_log.fetch 'session_id'
+        event_id = Event.find_by(name: one_log.fetch('event')).id
 
         # Optional
-        index_from = row.fetch('index_from', nil)
-        index_to = row.fetch('index_to', nil)
-        url = row.fetch('url', nil)
-        domain = row.fetch('domain', nil)
-        subdomain = row.fetch('subdomain', nil)
-        path = row.fetch('path', nil)
+        index_from = one_log.fetch('index_from', nil)
+        index_to = one_log.fetch('index_to', nil)
+        url = one_log.fetch('url', nil)
+        domain = one_log.fetch('domain', nil)
+        subdomain = one_log.fetch('subdomain', nil)
+        path = one_log.fetch('path', nil)
 
         if UsageLog.create(user_id: user_id, tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
                         domain: domain, subdomain: subdomain, path: path, session_id: session_id,
                         index_from: index_from, index_to: index_to, timestamp: timestamp)
+
           status 201
           json message: 'Created'
         else
-          status 422
-          json message: 'Unprocessable data'
+          halt 422, 'Unprocessable data'
         end
       end
     else
-      halt 400, 'Bad data format'
+      halt 404, 'Usage log data missing.'
     end
   end
 
   # Index (last 300)
-  get '/usage_logs' do
+  get 'logs/usage' do
     ul = UsageLog.order(created_at: :desc).limit(300)
     json ul
   end
