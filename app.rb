@@ -73,7 +73,7 @@ class TabRec < Sinatra::Base
 
   # User browsing stats
   # -----------------------------------
-  get 'stats/browsing/:id' do
+  get '/stats/browsing/:id' do
     user = User.find(params[:id])
     if user
       bstats = {
@@ -82,8 +82,7 @@ class TabRec < Sinatra::Base
       }
       json bstats
     else
-      status 404
-      json { message: 'User not found' }
+      halt 404, 'User not found'
     end
   end
 
@@ -92,7 +91,7 @@ class TabRec < Sinatra::Base
   # --------------------------------------------------------------------------------------------------------------------
 
   # Bulk create
-  post 'logs/usage' do
+  post '/logs/usage' do
     ulogs = params[:data]
 
     if ulogs
@@ -132,7 +131,7 @@ class TabRec < Sinatra::Base
   end
 
   # Index (last 300)
-  get 'logs/usage' do
+  get '/logs/usage' do
     ul = UsageLog.order(created_at: :desc).limit(300)
     json ul
   end
