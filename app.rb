@@ -40,7 +40,8 @@ class TabRec < Sinatra::Base
   # Create
   # -----------------------------------
   post '/users' do
-    if user = User.create(params[:user])
+    user = User.new(params[:user])
+    if user.save
       status 201
       json user
     else
