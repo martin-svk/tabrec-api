@@ -93,7 +93,7 @@ class TabRec < Sinatra::Base
 
     if ulogs
       ulogs.each do |ulog|
-        # TODO: find out why ulog is an array
+        # ulog is an array where first element is data index
         one_log = ulog[1]
 
         # Mandatory
@@ -115,12 +115,13 @@ class TabRec < Sinatra::Base
         if UsageLog.create(user_id: user_id, tab_id: tab_id, event_id: event_id, window_id: window_id, url: url,
                         domain: domain, subdomain: subdomain, path: path, session_id: session_id,
                         index_from: index_from, index_to: index_to, timestamp: timestamp)
-
-          halt 201, 'Success'
         else
           halt 422, 'Unprocessable data'
         end
       end
+
+      status 201
+      json message: 'Success'
     else
       halt 404, 'Usage log data missing.'
     end
