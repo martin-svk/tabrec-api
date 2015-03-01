@@ -27,8 +27,14 @@ class TabRec < Sinatra::Base
   # Show
   # -----------------------------------
   get '/users/:id' do
-    user = User.find(params[:id])
-    json user
+    user = User.find_by(id: params[:id])
+    if user
+      status 200
+      json user
+    else
+      status 404
+      json message: 'User not found'
+    end
   end
 
   # Index
@@ -65,6 +71,7 @@ class TabRec < Sinatra::Base
     user.other_plugins = new_other_plugins
 
     if user.save
+      status 200
       json user
     else
       status 422
@@ -80,6 +87,7 @@ class TabRec < Sinatra::Base
       weekly: user.weekly_bstats,
       alltime: user.bstats
     }
+    stats 200
     json bstats
   end
 
@@ -130,6 +138,7 @@ class TabRec < Sinatra::Base
   # Index (last 300)
   get '/logs/usage' do
     ul = UsageLog.order(created_at: :desc).limit(300)
+    status 200
     json ul
   end
 end
