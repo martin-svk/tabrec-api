@@ -87,7 +87,7 @@ class TabRec < Sinatra::Base
       weekly: user.weekly_bstats,
       alltime: user.bstats
     }
-    stats 200
+    status 200
     json bstats
   end
 
