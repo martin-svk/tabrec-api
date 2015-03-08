@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(version: 20141129121403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "advices", force: true do |t|
+  create_table "advices", force: :cascade do |t|
     t.string   "name"
     t.text     "desc"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "events", force: true do |t|
+  create_table "events", force: :cascade do |t|
     t.string   "name"
     t.text     "desc"
     t.datetime "created_at"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20141129121403) do
 
   add_index "events", ["name"], name: "index_events_on_name", using: :btree
 
-  create_table "logs", force: true do |t|
+  create_table "logs", force: :cascade do |t|
     t.string   "user_id"
     t.integer  "event_id"
     t.integer  "advice_id"
@@ -41,14 +41,14 @@ ActiveRecord::Schema.define(version: 20141129121403) do
     t.datetime "updated_at"
   end
 
-  create_table "resolutions", force: true do |t|
+  create_table "resolutions", force: :cascade do |t|
     t.string   "name"
     t.text     "desc"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "usage_logs", force: true do |t|
+  create_table "usage_logs", force: :cascade do |t|
     t.string   "user_id"
     t.integer  "event_id"
     t.datetime "created_at"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20141129121403) do
     t.string   "subdomain"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "experience"
     t.datetime "created_at"
     t.datetime "updated_at"
