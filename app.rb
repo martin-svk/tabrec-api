@@ -6,6 +6,7 @@ require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'sinatra/json'
 
+# Separete models loading
 require_relative 'app/models/init'
 
 # ======================================================================================================================
@@ -14,6 +15,14 @@ require_relative 'app/models/init'
 
 class TabRec < Sinatra::Base
   register Sinatra::ActiveRecordExtension
+
+  # Configure logging
+  configure :production, :development do
+    enable :logging
+    file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+    file.sync = true
+    use Rack::CommonLogger, file
+  end
 
   # Redirect to Chrome store page
   get '/' do
