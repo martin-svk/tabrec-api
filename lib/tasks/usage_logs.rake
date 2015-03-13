@@ -1,9 +1,10 @@
+require 'pry'
 namespace :ulogs do
   desc "Exploratory analysis of usage logs."
   task :stats do
     users_count = User.count
     ulogs_count = UsageLog.count
-    sessions_count = UsageLog.uniq.pluck(:session_id).size
+    sessions_count = UsageLog.select(:session_id).distinct.count
 
     puts "------------   BASICS   --------------"
 
@@ -30,21 +31,62 @@ namespace :ulogs do
     puts "ULogs for TAB_DETACHED: #{UsageLog.where(event_id: 7).count}"
   end
 
-  desc "Implementation of trivial GSP like algorythm for finding the most common transactions"
+  desc "Implementation of trivial GSP like algorithm for finding the most common transactions"
   task :gsp do
     # Basic params
     window_size = 100_000
     min_gap = 0
     max_gap = 3_000
+    min_transaction_size = 3
+    sessions = UsageLog.select(:session_id).distinct.pluck(:session_id) # our 'customers'
 
-    UsageLog.select(:id, :session_id, :event_id, :timestamp).find_each(batch_size: 10000) do |ulog|
-      print ulog.event_id
+    # Result sequences
+    @sequences = Hash.new
+
+    sessions.each do |session|
+      # puts "Processing session: #{session}"
+      @sequences[session] = get_sequences(window_size, min_gap, max_gap, min_transaction_size, ulogs_in_session(session))
     end
+
+    # Now find the most common sequence
+    min_support = 0.15 # 15 percent
   end
 
   private
 
-  def nieco
-    puts "sdsad"
+  def get_sequences(win_size, min_gap, max_gap, min_transaction_size, ulogs)
+    result = []
+    sequences = []
+    last_ulog = nil
+    current_window_size = 0
+
+    ulogs.each do |ulog|
+      current_gap = last_ulog.nil? ? 0 : timestamp_gap(ulog, last_ulog)
+      current_window_size += current_gap
+
+      if last_ulog.nil? || (current_gap < max_gap && current_gap > min_gap && current_window_size < win_size)
+        # inside the gap and window or first log in sequence
+        sequences << ulog[:event_id]
+        last_ulog = ulog
+      else
+        # ts gap or window is wider
+        if sequences.size >= min_transaction_size
+          result << sequences.dup
+        end
+        sequences.clear
+        current_window_size = 0
+        last_ulog = nil
+      end
+    end
+
+    result
+  end
+
+  def timestamp_gap(ulog1, ulog2)
+    ulog1[:timestamp] - ulog2[:timestamp]
+  end
+
+  def ulogs_in_session(session)
+    UsageLog.in_session(session).select(:id, :session_id, :event_id, :timestamp).order(id: :asc)
   end
 end
