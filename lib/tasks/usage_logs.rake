@@ -28,7 +28,23 @@ namespace :ulogs do
     puts "ULogs for TAB_UPDATED: #{UsageLog.where(event_id: 5).count}"
     puts "ULogs for TAB_ATTACHED: #{UsageLog.where(event_id: 6).count}"
     puts "ULogs for TAB_DETACHED: #{UsageLog.where(event_id: 7).count}"
+  end
 
-    # puts "-------- SIMPLE SEQUENCES  -----------"
+  desc "Implementation of trivial GSP like algorythm for finding the most common transactions"
+  task :gsp do
+    # Basic params
+    window_size = 100_000
+    min_gap = 0
+    max_gap = 3_000
+
+    UsageLog.select(:id, :session_id, :event_id, :timestamp).find_each(batch_size: 10000) do |ulog|
+      print ulog.event_id
+    end
+  end
+
+  private
+
+  def nieco
+    puts "sdsad"
   end
 end
