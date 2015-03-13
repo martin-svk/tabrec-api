@@ -6,5 +6,7 @@
 class UsageLog < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
+
+  scope :in_session, -> (session_id) { where(session_id: session_id) }
 end
 

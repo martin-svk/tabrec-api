@@ -24,16 +24,16 @@ class User < ActiveRecord::Base
 
   private
 
-    def ulogs_with_event(event_name)
-      usage_logs.joins(:event).where(events: { name: event_name })
-    end
+  def ulogs_with_event(event_name)
+    usage_logs.joins(:event).where(events: { name: event_name })
+  end
 
-    def ulogs_in_session(session_id)
-      usage_logs.where(session_id: session_id)
-    end
+  def ulogs_in_session(session_id)
+    usage_logs.where(session_id: session_id)
+  end
 
-    def ulogs_in_domain(session_id, domain)
-      usage_logs.where(session_id: session_id, domain: domain)
-    end
+  def ulogs_in_domain(session_id, domain)
+    usage_logs.where(session_id: session_id, domain: domain)
+  end
 end
 
