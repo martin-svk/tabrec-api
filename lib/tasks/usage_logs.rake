@@ -138,17 +138,6 @@ namespace :ulogs do
             seq_comp = get_string_representation(seq_comparing)
 
             # Comparing sequences as strings (testing if subsequence/substring exists)
-            # if seq == seq_comp
-            #   result[seq] += 1
-            # elsif seq.include?(seq_comp)
-            #   if compared.add?(seq_comp)
-            #     result[seq_comp] = 0
-            #   end
-            #   result[seq_comp] += 1
-            # elsif seq_comp.include?(seq)
-            #   result[seq] += 1
-            # end
-
             if seq == seq_comp || seq_comp.include?(seq)
               result[seq] += 1
             end
