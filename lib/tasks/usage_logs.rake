@@ -50,9 +50,14 @@ namespace :ulogs do
 
     # Now find the most common sequence
     min_support = 0.15 # 15 percent
+    @patterns = get_patterns(@sequences, min_support)
   end
 
   private
+
+  def ulogs_in_session(session)
+    UsageLog.in_session(session).select(:id, :session_id, :event_id, :timestamp).order(id: :asc)
+  end
 
   def get_sequences(win_size, min_gap, max_gap, min_transaction_size, ulogs)
     result = []
@@ -82,11 +87,48 @@ namespace :ulogs do
     result
   end
 
+
+  ##
+  # Sequences look like this: {'session-uuid': [ [1, 3], [2, 4, 4, 5] ], 'session2-uuid': ... }
+  # We firstly sort by sequence length and we store already processed sequences
+  # in Set. Before processing another sequence we firstly check if this or its super-sequence
+  # was not yet processed.
+  ##
+  def get_patterns(sequences, min_support)
+    already_compared = Set.new
+    result = Hash.new
+
+    sequences.each_value do |array_of_sequences_for_session|
+      binding.pry
+
+      array_of_sequences_for_session.each do |seq_evaluated|
+        result[seq_evaluated] = 0 # init
+        seq_eval = get_string_representation(seq_evaluated)
+
+        sequences.each_value do |array_of_sequences_for_session|
+          array_of_sequences_for_session.each do |seq_comparing|
+            seq_comp = get_string_representation(seq_comparing)
+
+            if seq_eval.include?(seq_comp) || seq_comp.include?(seq_eval)
+              result[seq_evaluated] += 1
+            end
+          end
+        end
+      end
+    end
+
+    result
+  end
+
   def timestamp_gap(ulog1, ulog2)
     ulog1[:timestamp] - ulog2[:timestamp]
   end
 
-  def ulogs_in_session(session)
-    UsageLog.in_session(session).select(:id, :session_id, :event_id, :timestamp).order(id: :asc)
+  def get_string_representation(array)
+    result = ''
+    array.each do |element|
+      result += element.to_s
+    end
   end
+
 end
