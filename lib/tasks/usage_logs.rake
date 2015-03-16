@@ -1,4 +1,3 @@
-require 'pry'
 namespace :ulogs do
   desc "Exploratory analysis of usage logs."
   task :stats do
@@ -43,14 +42,28 @@ namespace :ulogs do
     # Result sequences
     @sequences = Hash.new
 
-    sessions.each do |session|
-      # puts "Processing session: #{session}"
+    puts 'Extracting all sequences per session'
+    sessions.each_with_index do |session, index|
       @sequences[session] = get_sequences(window_size, min_gap, max_gap, min_transaction_size, ulogs_in_session(session))
+      print_progress(index, sessions.size / 100)
     end
 
     # Now find the most common sequence
     min_support = 0.15 # 15 percent
+
+    puts
+    puts 'Generating most common sequences'
+
     @patterns = get_patterns(@sequences, min_support)
+
+    puts
+    puts 'Most common patterns:'
+    puts "Events: #{Event.pluck(:id, :name)}"
+    puts
+
+    @patterns.each do |key, value|
+      puts "Sequence: #{key} | Occured: #{value} times"
+    end
   end
 
   private
@@ -94,30 +107,50 @@ namespace :ulogs do
   # in Set. Before processing another sequence we firstly check if this or its super-sequence
   # was not yet processed.
   ##
-  def get_patterns(sequences, min_support)
-    already_compared = Set.new
+  def get_patterns(sequence_hash, min_support)
+    counter = 0
     result = Hash.new
+    compared = Set.new
 
-    sequences.each_value do |array_of_sequences_for_session|
-      binding.pry
+    sequence_hash.each_value do |sequences_array|
+      seq_array = sequences_array.sort_by(&:length).reverse
 
-      array_of_sequences_for_session.each do |seq_evaluated|
-        result[seq_evaluated] = 0 # init
-        seq_eval = get_string_representation(seq_evaluated)
+      seq_array.each do |seq|
+        # Getting string from seq array
+        seq = get_string_representation(seq)
 
-        sequences.each_value do |array_of_sequences_for_session|
-          array_of_sequences_for_session.each do |seq_comparing|
+        # Adding to compared set (skipping if sequence already is in set)
+        if compared.add?(seq).nil?
+          next
+        else
+          result[seq] = 0 if result[seq].nil?
+        end
+
+        # Compare with all sequences in sequence_hash (N^2 Loop)
+        sequence_hash.each_value do |sequences_comparing_array|
+          seq_comp_array = sequences_comparing_array.sort_by(&:length).reverse
+
+          seq_comp_array.each do |seq_comparing|
             seq_comp = get_string_representation(seq_comparing)
 
-            if seq_eval.include?(seq_comp) || seq_comp.include?(seq_eval)
-              result[seq_evaluated] += 1
+            # Comparing sequences as strings (testing if subsequence/substring exists)
+            if seq.include?(seq_comp)
+              result[seq_comp] = 0 if result[seq_comp].nil?
+              result[seq_comp] = result[seq_comp] + 1
+            elsif seq_comp.include?(seq)
+              result[seq] = result[seq] + 1
             end
           end
         end
       end
+
+      # Printing progress
+      print_progress(counter, sequence_hash.size / 100)
+      counter += 1
     end
 
-    result
+    # Sorting based on counter
+    result.reject{ |_k, v| v < (sequence_hash.size * min_support) }.sort_by{ |_k, v| v }.reverse.to_h
   end
 
   def timestamp_gap(ulog1, ulog2)
@@ -129,6 +162,15 @@ namespace :ulogs do
     array.each do |element|
       result += element.to_s
     end
+    result
   end
 
+  # Printing progress
+  def print_progress(current, percent)
+    if percent > 0
+      if current % percent == 0
+        print '-'
+      end
+    end
+  end
 end
