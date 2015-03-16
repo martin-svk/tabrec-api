@@ -49,7 +49,7 @@ namespace :ulogs do
     end
 
     # Now find the most common sequence
-    min_support = 0.15 # 15 percent
+    min_support = 0.05 # 5 percent
 
     puts
     puts 'Generating most common sequences'
@@ -108,22 +108,24 @@ namespace :ulogs do
   # was not yet processed.
   ##
   def get_patterns(sequence_hash, min_support)
-    counter = 0
+    progress_counter = 0
+    sequences_counter = 0
     result = Hash.new
     compared = Set.new
 
     sequence_hash.each_value do |sequences_array|
+      sequences_counter += sequences_array.length
       seq_array = sequences_array.sort_by(&:length).reverse
 
       seq_array.each do |seq|
         # Getting string from seq array
         seq = get_string_representation(seq)
 
-        # Adding to compared set (skipping if sequence already is in set)
+        # Add to compared set and intialize (skip if sequence already was analyzed)
         if compared.add?(seq).nil?
           next
         else
-          result[seq] = 0 if result[seq].nil?
+          result[seq] = 0
         end
 
         # Compare with all sequences in sequence_hash (N^2 Loop)
@@ -134,23 +136,33 @@ namespace :ulogs do
             seq_comp = get_string_representation(seq_comparing)
 
             # Comparing sequences as strings (testing if subsequence/substring exists)
-            if seq.include?(seq_comp)
-              result[seq_comp] = 0 if result[seq_comp].nil?
-              result[seq_comp] = result[seq_comp] + 1
-            elsif seq_comp.include?(seq)
-              result[seq] = result[seq] + 1
+            # if seq == seq_comp
+            #   result[seq] += 1
+            # elsif seq.include?(seq_comp)
+            #   if compared.add?(seq_comp)
+            #     result[seq_comp] = 0
+            #   end
+            #   result[seq_comp] += 1
+            # elsif seq_comp.include?(seq)
+            #   result[seq] += 1
+            # end
+
+            if seq == seq_comp || seq_comp.include?(seq)
+              result[seq] += 1
             end
           end
         end
       end
 
       # Printing progress
-      print_progress(counter, sequence_hash.size / 100)
-      counter += 1
+      print_progress(progress_counter, sequence_hash.size / 100)
+      progress_counter += 1
     end
 
-    # Sorting based on counter
-    result.reject{ |_k, v| v < (sequence_hash.size * min_support) }.sort_by{ |_k, v| v }.reverse.to_h
+    # Sorting based on counter applicating min support and finally sorting by sequence lenght
+    sorted = result.sort_by{ |_k, v| v }.reverse.to_h
+    sorted_with_support = sorted.reject{ |_k, v| v < (sequences_counter * min_support) }
+    sorted_with_support.sort_by{ |k, _v| k.length }.reverse.to_h
   end
 
   def timestamp_gap(ulog1, ulog2)
