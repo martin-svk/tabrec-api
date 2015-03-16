@@ -35,7 +35,7 @@ namespace :ulogs do
     # Basic params
     window_size = 100_000
     min_gap = 0
-    max_gap = 3_000
+    max_gap = 5_000
     min_transaction_size = 3
     sessions = UsageLog.select(:session_id).distinct.pluck(:session_id) # our 'customers'
 
@@ -49,7 +49,7 @@ namespace :ulogs do
     end
 
     # Now find the most common sequence
-    min_support = 0.05 # 5 percent
+    min_support = 0.03 # 3 percent
 
     puts
     puts 'Generating most common sequences'
@@ -58,7 +58,9 @@ namespace :ulogs do
 
     puts
     puts 'Most common patterns:'
-    puts "Events: #{Event.pluck(:id, :name)}"
+    puts
+    puts "Events | #{Event.pluck(:id, :name)}"
+    puts "GSP | window size: #{window_size / 1000} sec | max gap: #{max_gap / 1000} sec | min support: #{min_support * 100}% of transactions"
     puts
 
     @patterns.each do |key, value|
