@@ -1,3 +1,6 @@
+require 'csv'
+require 'pry'
+
 namespace :ulogs do
   desc "Exploratory analysis of usage logs."
   task :stats do
@@ -68,6 +71,26 @@ namespace :ulogs do
     end
   end
 
+  desc "Will transform and export to CSV usage logs data in wide column format for events"
+  task :transform do
+    filename = 'tabrec_ulogs_wide_format_' + Date.today.to_s + '.csv'
+
+    ulogs = UsageLog.select(:id, :session_id, :event_id, :timestamp).order(id: :asc)
+    ucount = UsageLog.count
+
+    CSV.open(filename, "wb", col_sep: ',') do |csv|
+      index = 0
+      csv << ['sid', 'timestamp', 'create', 'remove', 'activate', 'move', 'update', 'attach', 'detach']
+
+      ulogs.find_each do |ulog|
+        row = [ulog.session_id, ulog.timestamp] + event_array(ulog)
+        csv << row
+        index += 1
+        print_progress(index, ucount / 100)
+      end
+    end
+  end
+
   private
 
   def ulogs_in_session(session)
@@ -101,7 +124,6 @@ namespace :ulogs do
 
     result
   end
-
 
   ##
   # Sequences look like this: {'session-uuid': [ [1, 3], [2, 4, 4, 5] ], 'session2-uuid': ... }
@@ -175,5 +197,15 @@ namespace :ulogs do
         print '-'
       end
     end
+  end
+
+  # Get array of 1 or 0 depending on with event is in usage log
+  def event_array(ulog)
+    array = []
+    Event.count.times do
+      array << 0
+    end
+    array[ulog.event_id - 1] = 1 # array number from 0, event id from 1
+    array
   end
 end
