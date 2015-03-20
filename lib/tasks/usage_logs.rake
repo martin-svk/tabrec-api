@@ -52,7 +52,7 @@ namespace :ulogs do
     end
 
     # Now find the most common sequence
-    min_support = 0.03 # 3 percent
+    min_support = 0.001 # 0.1 percent
 
     puts
     puts 'Generating most common sequences'
