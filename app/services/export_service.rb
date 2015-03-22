@@ -21,6 +21,6 @@ class ExportService
   private
 
   def export_attributes
-    %w(id user_id event_id tab_id window_id url domain path subdomain timestamp)
+    %w(id user_id session_id event_id tab_id window_id url domain path subdomain timestamp)
   end
 end

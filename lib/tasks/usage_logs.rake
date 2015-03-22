@@ -62,4 +62,11 @@ namespace :ulogs do
     ts = TransformService.new(filename)
     ts.transform
   end
+
+  desc "Will export usage log data into CSV."
+  task :export do
+    filename = 'tabrec_ulogs_' + Date.today.to_s + '.csv'
+    es = ExportService.new(filename)
+    es.export
+  end
 end
