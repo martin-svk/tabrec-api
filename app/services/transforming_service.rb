@@ -1,4 +1,4 @@
-class TransformService
+class TransformingService
   attr_accessor :filename
 
   def initialize(filename)

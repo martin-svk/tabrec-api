@@ -59,7 +59,7 @@ namespace :ulogs do
   desc "Will transform and export usage logs data to CSV in wide column format for events"
   task :transform do
     filename = 'tabrec_ulogs_wide_format_' + Date.today.to_s + '.csv'
-    ts = TransformService.new(filename)
+    ts = TransformingService.new(filename)
     ts.transform
   end
 
