@@ -123,14 +123,4 @@ class PatternService
     end
     result
   end
-
-  # Get array of 1 or 0 depending on with event is in usage log
-  def event_array(ulog)
-    array = []
-    Event.count.times do
-      array << 0
-    end
-    array[ulog.event_id - 1] = 1 # array number from 0, event id from 1
-    array
-  end
 end

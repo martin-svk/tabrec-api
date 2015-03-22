@@ -59,24 +59,7 @@ namespace :ulogs do
   desc "Will transform and export usage logs data to CSV in wide column format for events"
   task :transform do
     filename = 'tabrec_ulogs_wide_format_' + Date.today.to_s + '.csv'
-
-    ulogs = UsageLog.select(:id, :session_id, :event_id, :timestamp).order(id: :asc)
-    ucount = UsageLog.count
-
-    CSV.open(filename, "wb", col_sep: ',') do |csv|
-      index = 0
-      csv << ['sid', 'timestamp', 'create', 'remove', 'activate', 'move', 'update', 'attach', 'detach']
-
-      ulogs.find_each do |ulog|
-        row = [ulog.session_id, ulog.timestamp] + event_array(ulog)
-        csv << row
-        index += 1
-        print_progress(index, ucount / 100)
-      end
-    end
-  end
-
-  desc "Will export usage logs to CSV"
-  task :export do
+    ts = TransformService.new(filename)
+    ts.transform
   end
 end
