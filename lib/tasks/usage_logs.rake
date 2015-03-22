@@ -33,8 +33,8 @@ namespace :ulogs do
     puts "ULogs for TAB_DETACHED: #{UsageLog.where(event_id: 7).count}"
   end
 
-  desc "Extract the most common transactions (patterns)"
-  task :extract do
+  desc "Discover the most common transactions (patterns)"
+  task :discover do
     window_size = 100_000
     min_gap = 0
     max_gap = 5_000
