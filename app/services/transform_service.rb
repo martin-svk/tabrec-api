@@ -7,7 +7,6 @@ class TransformService
 
   def transform
     ulogs = UsageLog.select(:id, :session_id, :event_id, :timestamp).order(id: :asc)
-    ucount = UsageLog.count
 
     CSV.open(filename, "wb", col_sep: ',') do |csv|
       csv << ['sid', 'timestamp', 'create', 'remove', 'activate', 'move', 'update', 'attach', 'detach']
