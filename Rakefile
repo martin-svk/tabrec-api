@@ -1,6 +1,6 @@
 require "sinatra/activerecord/rake"
 require "./app"
-require './app/services/init'
+require './app/services/_init'
 
 # Load all rake tasks
 Dir.glob('lib/tasks/*.rake').each { |r| load r}
