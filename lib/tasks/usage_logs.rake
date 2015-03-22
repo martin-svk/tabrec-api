@@ -41,8 +41,8 @@ namespace :ulogs do
     min_transaction_size = 3
     min_support = 5 # percent
 
-    ps = PatternService.new(window_size, min_gap, max_gap, min_transaction_size, min_support)
-    patterns = ps.extract
+    pds = PatternDiscoveryService.new(window_size, min_gap, max_gap, min_transaction_size, min_support)
+    patterns = pds.extract
 
     puts
     puts 'Most common patterns:'

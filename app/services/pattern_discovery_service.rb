@@ -1,4 +1,4 @@
-class PatternService
+class PatternDiscoveryService
   attr_accessor :window_size, :min_gap, :max_gap, :min_transaction_size, :min_support
 
   def initialize(window_size, min_gap, max_gap, min_transaction_size, min_support)
