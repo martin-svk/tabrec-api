@@ -33,8 +33,9 @@ namespace :ulogs do
     puts "ULogs for TAB_DETACHED: #{UsageLog.where(event_id: 7).count}"
   end
 
-  desc "Implementation of trivial GSP like algorithm for finding the most common transactions"
-  task :gsp do
+  desc "Extract the most common transactions"
+  task :extract do
+    se = SequenceExtractor.new('a')
     # Basic params
     window_size = 100_000
     min_gap = 0
@@ -71,7 +72,7 @@ namespace :ulogs do
     end
   end
 
-  desc "Will transform and export to CSV usage logs data in wide column format for events"
+  desc "Will transform and export usage logs data to CSV in wide column format for events"
   task :transform do
     filename = 'tabrec_ulogs_wide_format_' + Date.today.to_s + '.csv'
 
@@ -89,6 +90,10 @@ namespace :ulogs do
         print_progress(index, ucount / 100)
       end
     end
+  end
+
+  desc "Will export usage logs to CSV"
+  task :export do
   end
 
   private

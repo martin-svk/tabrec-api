@@ -8,6 +8,7 @@ require 'sinatra/json'
 
 # Separete models loading
 require_relative 'app/models/init'
+require_relative 'app/services/init'
 
 # ======================================================================================================================
 # Controller
