@@ -1,13 +1,13 @@
 class DiscoveryService
-  attr_accessor :min_support
+  attr_accessor :sequence_builder, :min_support
 
-  def initialize(min_support)
+  def initialize(min_support, sequence_builder = SequenceBuilderService.new)
     @min_support = min_support / 100.0
+    @sequence_builder = sequence_builder
   end
 
   def discover
-    ss = SequenceBuilderService.new
-    sequences = ss.get_sequences
+    sequences = self.sequence_builder.get_sequences
     patterns = discover_patterns(sequences)
     patterns
   end

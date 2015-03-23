@@ -1,7 +1,7 @@
 class SequenceBuilderService
   attr_accessor :window_size, :min_gap, :max_gap, :min_transaction_size
 
-  def initialize(window_size, min_gap, max_gap, min_transaction_size)
+  def initialize(window_size = 100_000, min_gap = 0, max_gap = 3_000, min_transaction_size = 3)
     @window_size = window_size
     @min_gap = min_gap
     @max_gap = max_gap
