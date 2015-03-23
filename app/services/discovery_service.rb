@@ -15,17 +15,24 @@ class DiscoveryService
   private
 
   ##
-  # Sequences look like this: {'session-uuid': [ [1, 3], [2, 4, 4, 5] ], 'session2-uuid': ... }
+  # Sequences look like this: { 'session-uuid': [ [{id: 1 eid: 2}, {id: 2, eid: 3}], [{id:4, eid: 5}] ] ... }
+  # Old format was: {'session-uuid': [ [1, 3], [2, 4, 4, 5] ], 'session2-uuid': ... }
   # We firstly sort by sequence length and we store already processed sequences
   # in Set. Before processing another sequence we firstly check if this or its super-sequence
   # was not yet processed.
   ##
-  def discover_patterns(sequence_hash)
+  def discover_patterns(all_sequences_hashes)
     sequences_counter = 0
     result = Hash.new
     compared = Set.new
 
-    sequence_hash.each_value do |sequences_array|
+    all_sequences_hashes.each_value do |sequence_hashes|
+      sequences_array = []
+      sequence_hashes.each do |sequence_hash|
+        # Extract only event id from event hashes
+        sequences_array << sequence_hash.each.map { |e| e[:eid] }
+      end
+
       sequences_counter += sequences_array.length
       seq_array = sequences_array.sort_by(&:length).reverse
 
@@ -40,9 +47,15 @@ class DiscoveryService
           result[seq] = 0
         end
 
-        # Compare with all sequences in sequence_hash (N^2 Loop)
-        sequence_hash.each_value do |sequences_comparing_array|
-          seq_comp_array = sequences_comparing_array.sort_by(&:length).reverse
+        # Compare with all sequences in all_sequences_hash (N^2 Loop)
+        all_sequences_hashes.each_value do |sequence_comparing_hashes|
+          sequence_comparing_array = []
+          sequence_comparing_hashes.each do |sequence_comparing_hash|
+            # Extract only event id from event hashes
+            sequence_comparing_array << sequence_comparing_hash.each.map { |e| e[:eid] }
+          end
+
+          seq_comp_array = sequence_comparing_array.sort_by(&:length).reverse
 
           seq_comp_array.each do |seq_comparing|
             seq_comp = get_string_representation(seq_comparing)

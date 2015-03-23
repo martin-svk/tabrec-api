@@ -16,7 +16,7 @@ class SequenceBuilderService
     sessions = UsageLog.select(:session_id).distinct.pluck(:session_id)
     result = Hash.new
 
-    sessions.each_with_index do |session, index|
+    sessions.take(10).each_with_index do |session, index|
       result[session] = get_sequences_for(ulogs_in_session(session))
     end
 
@@ -27,7 +27,7 @@ class SequenceBuilderService
 
   def get_sequences_for(ulogs)
     result = []
-    temp_seq = []
+    temp_seq = [] # will contain hashes with event_id and usage log id (for futher analysis)
     last_ulog = nil
     current_window_size = 0
 
@@ -37,7 +37,7 @@ class SequenceBuilderService
 
       if last_ulog.nil? || (current_gap < self.max_gap && current_gap > self.min_gap && current_window_size < self.window_size)
         # inside the gap and window or first log in sequence
-        temp_seq << ulog[:event_id]
+        temp_seq << {id: ulog[:id], eid: ulog[:event_id]}
         last_ulog = ulog
       else
         # ts gap or window is wider

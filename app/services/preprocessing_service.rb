@@ -9,8 +9,8 @@ class PreprocessingService
     result = []
     sequences = self.seq_builder.get_sequences
 
+    # Each seq has event_id and id
     sequences.find_each do |seq|
-
     end
   end
 
