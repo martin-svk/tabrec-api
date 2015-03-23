@@ -40,7 +40,7 @@ namespace :ulogs do
     min_transaction_size = 3
     min_support = 5 # percent
 
-    pds = PatternDiscoveryService.new(window_size, min_gap, max_gap, min_transaction_size, min_support)
+    pds = DiscoveryService.new(window_size, min_gap, max_gap, min_transaction_size, min_support)
     patterns = pds.extract
 
     puts
