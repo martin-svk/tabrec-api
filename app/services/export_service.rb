@@ -9,7 +9,7 @@ class ExportService
   def export
     ulogs = if preprocess
       ps = PreprocessingService.new
-      ps.preprocess(UsageLog.order(id: :asc))
+      ps.get_preprocessed_ulogs
     else
       UsageLog.order(id: :asc)
     end

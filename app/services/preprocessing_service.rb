@@ -1,11 +1,16 @@
 class PreprocessingService
-  def initialize
+  attr_accessor :seq_builder
+
+  def initialize(seq_builder = SequenceBuilderService.new)
+    @seq_builder = seq_builder
   end
 
-  def preprocess(ulogs)
+  def get_preprocessed_ulogs
     result = []
+    sequences = self.seq_builder.get_sequences
 
-    ulogs.find_each do |ulog|
+    sequences.find_each do |seq|
+
     end
   end
 
