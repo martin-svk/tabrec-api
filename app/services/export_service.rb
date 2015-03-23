@@ -1,9 +1,8 @@
 class ExportService
-  attr_accessor :filename, :attributes
+  attr_accessor :filename
 
-  def initialize(filename, attributes = [])
+  def initialize(filename)
     @filename = filename
-    @attributes = attributes
   end
 
   def export
@@ -12,8 +11,8 @@ class ExportService
     CSV.open(filename, "wb", col_sep: ',') do |csv|
       csv << export_attributes
 
-      ulogs.find_each do |user|
-        csv << user.attributes.values_at(*export_attributes)
+      ulogs.find_each do |ulog|
+        csv << ulog.attributes.values_at(*export_attributes)
       end
     end
   end
