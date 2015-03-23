@@ -19,4 +19,9 @@ class PreprocessingService
     # tab created + tab updated
     "#{Event.find_by(name: 'TAB_CREATED').id}#{Event.find_by(name: 'TAB_UPDATED').id}"
   end
+
+  def close_current_tab
+    # tab removed + tab activated
+    "#{Event.find_by(name: 'TAB_REMOVED').id}#{Event.find_by(name: 'TAB_ACTIVATED').id}"
+  end
 end
