@@ -1,17 +1,21 @@
-class PreprocessingService
+class GroupingService
   attr_accessor :seq_builder
 
   def initialize(seq_builder = SequenceBuilderService.new)
     @seq_builder = seq_builder
   end
 
-  def get_preprocessed_ulogs
+  def get_grouped_ulogs
     result = []
     sequences = self.seq_builder.get_sequences
 
     # Each seq has event_id and id
     sequences.find_each do |seq|
     end
+  end
+
+  def group_ulogs(ulogs)
+
   end
 
   def get_attributes

@@ -1,21 +1,21 @@
 class ExportService
-  attr_accessor :filename, :preprocess
+  attr_accessor :filename, :group
 
-  def initialize(filename, preprocess = false)
+  def initialize(filename, group = false)
     @filename = filename
-    @preprocess = preprocess
+    @group = group
   end
 
   def export
-    ulogs = if preprocess
+    ulogs = if group
       ps = PreprocessingService.new
-      ps.get_preprocessed_ulogs
+      ps.get_grouped_ulogs
     else
       UsageLog.order(id: :asc)
     end
 
     CSV.open(filename, "wb", col_sep: ',') do |csv|
-      if preprocess
+      if group
         csv << ps.get_attributes
         ulogs.find_each do |ulog|
           csv << ulog
