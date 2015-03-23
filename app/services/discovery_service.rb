@@ -16,7 +16,6 @@ class DiscoveryService
 
   ##
   # Sequences look like this: { 'session-uuid': [ [{id: 1 eid: 2}, {id: 2, eid: 3}], [{id:4, eid: 5}] ] ... }
-  # Old format was: {'session-uuid': [ [1, 3], [2, 4, 4, 5] ], 'session2-uuid': ... }
   # We firstly sort by sequence length and we store already processed sequences
   # in Set. Before processing another sequence we firstly check if this or its super-sequence
   # was not yet processed.
