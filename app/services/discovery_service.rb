@@ -1,15 +1,24 @@
 class DiscoveryService
-  attr_accessor :sequence_builder, :min_support
+  attr_accessor :sequence_builder, :min_support, :group
 
-  def initialize(min_support, sequence_builder = SequenceBuilderService.new)
+  def initialize(min_support, group = false, sequence_builder = SequenceBuilderService.new)
     @min_support = min_support / 100.0
     @sequence_builder = sequence_builder
+    @group = group
   end
 
   def discover
     sequences = self.sequence_builder.get_sequences
     patterns = discover_patterns(sequences)
-    patterns
+
+    result = if group
+      gs = GroupingService.new
+      gs.group(patterns)
+    else
+      patterns
+    end
+
+    result
   end
 
   private

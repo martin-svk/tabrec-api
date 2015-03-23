@@ -14,8 +14,13 @@ class GroupingService
     end
   end
 
-  def group_ulogs(ulogs)
-
+  def group(patterns)
+    result = {}
+    patterns.each do |seq, count|
+      grouped = group_sequence(seq)
+      result[grouped] = count
+    end
+    result
   end
 
   def get_attributes
@@ -24,7 +29,18 @@ class GroupingService
 
   private
 
-  def group
+  def group_sequence(sequence)
+    result = sequence.gsub("#{new_tab}", 'NEW_TAB > ')
+    result = result.gsub("#{new_tab_bg}", 'NEW_TAB_BG > ')
+    result = result.gsub("#{close_current_tab}", 'CLOSE_CURRENT_TAB > ')
+    result = result.gsub("1", Event.find(1).name + ' > ')
+    result = result.gsub("2", Event.find(2).name + ' > ')
+    result = result.gsub("3", Event.find(3).name + ' > ')
+    result = result.gsub("4", Event.find(4).name + ' > ')
+    result = result.gsub("5", Event.find(5).name + ' > ')
+    result = result.gsub("6", Event.find(6).name + ' > ')
+    result = result.gsub("7", Event.find(7).name + ' > ')
+    result
   end
 
   def new_tab

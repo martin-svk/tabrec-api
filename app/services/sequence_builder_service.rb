@@ -16,7 +16,7 @@ class SequenceBuilderService
     sessions = UsageLog.select(:session_id).distinct.pluck(:session_id)
     result = Hash.new
 
-    sessions.take(10).each_with_index do |session, index|
+    sessions.each_with_index do |session, index|
       result[session] = get_sequences_for(ulogs_in_session(session))
     end
 

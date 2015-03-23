@@ -39,16 +39,17 @@ namespace :ulogs do
     max_gap = 5_000
     min_transaction_size = 3
     min_support = 5 # percent
+    group = true
 
     seq_builder = SequenceBuilderService.new(window_size, min_gap, max_gap, min_transaction_size)
-    pds = DiscoveryService.new(min_support, seq_builder)
+    pds = DiscoveryService.new(min_support, group, seq_builder)
     patterns = pds.discover
 
     puts
     puts 'Most common patterns:'
     puts
     puts "Events | #{Event.pluck(:id, :name)}"
-    puts "GSP | window size: #{window_size / 1000} sec | max gap: #{max_gap / 1000} sec | min support: #{min_support}% of transactions"
+    puts "Attributes | window size: #{window_size / 1000} sec | max gap: #{max_gap / 1000} sec | grouped: #{group} | min support: #{min_support}% of transactions"
     puts
 
     patterns.each do |key, value|
