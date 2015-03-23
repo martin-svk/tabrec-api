@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 
 namespace :ulogs do
   desc "Exploratory analysis of usage logs."
