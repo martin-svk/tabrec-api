@@ -2,7 +2,15 @@ class PreprocessingService
   def initialize
   end
 
-  def preprocess
+  def preprocess(ulogs)
+    result = []
+
+    ulogs.find_each do |ulog|
+    end
+  end
+
+  def get_attributes
+    %w(id session_id timestamp create create_bg close close_current focus move update attach detach)
   end
 
   private

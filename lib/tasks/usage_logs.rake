@@ -55,11 +55,11 @@ namespace :ulogs do
     end
   end
 
-  desc "Will transform and export usage logs data to CSV in wide column format for events"
-  task :transform do
+  desc "Will transform and export usage logs data to CSV in wide column format and preprocessed (grouped) events"
+  task :preprocess do
     filename = 'tabrec_ulogs_wide_format_' + Date.today.to_s + '.csv'
-    ts = TransformingService.new(filename)
-    ts.transform
+    es = ExportService.new(filename, true)
+    es.export
   end
 
   desc "Will export usage log data into CSV."
