@@ -28,6 +28,10 @@ group :test do
   gem 'rack-test', '~> 0.6.3'
 end
 
+group :production do
+  gem 'unicorn', '~> 4.8.3'
+end
+
 # Deployment tool
 gem 'capistrano', '~> 3.3.5'
 gem 'capistrano-rbenv', '~> 2.0.3'
