@@ -21,7 +21,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       #execute :touch, release_path.join('tmp/restart.txt')
-      execute :thin, "-C #{release_path.join('config/thin.yml')} restart"
+      execute :bundle, "exec thin -C #{release_path.join('config/thin.yml')} restart"
     end
   end
 
