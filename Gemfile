@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '2.2.1'
 
 # Sinatra web framework
-gem 'sinatra', git: 'git@github.com:sinatra/sinatra.git'
+gem 'sinatra', '~> 1.4.6'
 # Sinatra contribs including json
 gem 'sinatra-contrib', '~> 1.4.2'
 # Activerecord ORM
