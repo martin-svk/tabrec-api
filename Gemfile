@@ -16,8 +16,6 @@ gem 'sinatra-activerecord', '~> 2.0.5'
 gem 'pg', '~> 0.18.1'
 
 group :development do
-  # Thin web server
-  gem 'thin', '~> 1.6.3'
   # Pry inspection
   gem 'pry', '~> 0.10.1'
   # Sinatra's rails console
@@ -28,8 +26,9 @@ group :test do
   gem 'rack-test', '~> 0.6.3'
 end
 
-group :production do
-  gem 'unicorn', '~> 4.8.3'
+group :development, :production do
+  # Thin web server
+  gem 'thin', '~> 1.6.3'
 end
 
 # Deployment tool
