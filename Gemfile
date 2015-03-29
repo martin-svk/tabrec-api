@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 # Ruby
-ruby '2.2.0'
+ruby '2.2.1'
 
 # Sinatra web framework
 gem 'sinatra', git: 'git@github.com:sinatra/sinatra.git'
