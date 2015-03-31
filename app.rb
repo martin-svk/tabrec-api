@@ -105,6 +105,7 @@ class TabRec < Sinatra::Base
   # --------------------------------------------------------------------------------------------------------------------
 
   # Bulk create
+  # --------------------------------
   post '/logs/usage' do
     ulogs = params[:data]
 
@@ -145,9 +146,79 @@ class TabRec < Sinatra::Base
   end
 
   # Index (last 300)
+  # --------------------------------
   get '/logs/usage' do
     ul = UsageLog.order(created_at: :desc).limit(300)
     status 200
     json ul
+  end
+
+  # --------------------------------------------------------------------------------------------------------------------
+  # Logs
+  # --------------------------------------------------------------------------------------------------------------------
+
+  # Index (last 300)
+  # --------------------------------
+  get '/logs/rec' do
+    logs = Log.order(created_at: :desc).limit(300)
+    status 200
+    json logs
+  end
+
+  # Recommender stats
+  # --------------------------------
+  get '/stats/rec' do
+    rec_stats = {
+      provided: Log.count,
+      accepted: Log.accepted.count,
+      rejected: Log.rejected.count,
+      automatic: Log.automatic.count
+    }
+    status 200
+    json rec_stats
+  end
+
+  # --------------------------------------------------------------------------------------------------------------------
+  # Patterns
+  # --------------------------------------------------------------------------------------------------------------------
+
+  # Index
+  get '/patterns' do
+    patterns = Pattern.select(:id, :sequence, :desc).joins(:advice).select('advices.name as advice_name')
+    status 200
+    json patterns
+  end
+
+  # --------------------------------------------------------------------------------------------------------------------
+  # Advices
+  # --------------------------------------------------------------------------------------------------------------------
+
+  # Index
+  get '/advices' do
+    advices = Advice.select(:id, :name, :desc)
+    status 200
+    json advices
+  end
+
+  # --------------------------------------------------------------------------------------------------------------------
+  # Resolutions
+  # --------------------------------------------------------------------------------------------------------------------
+
+  # Index
+  get '/resolutions' do
+    resolutions = Resolution.select(:id, :name, :desc)
+    status 200
+    json resolutions
+  end
+
+  # --------------------------------------------------------------------------------------------------------------------
+  # Events
+  # --------------------------------------------------------------------------------------------------------------------
+
+  # Index
+  get '/events' do
+    events = Event.select(:id, :name, :desc)
+    status 200
+    json events
   end
 end
