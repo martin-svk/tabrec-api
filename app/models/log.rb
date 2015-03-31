@@ -1,11 +1,16 @@
 ##
 # This table contains recommendation logs from TabRec extension.
-# On specific :event, we make an :advice and the :user can accept or reject it (:resolution).
+# On specific pattern, we make an advice and the user can accept or reject it (resolution).
 #
 class Log < ActiveRecord::Base
   belongs_to :user
   belongs_to :pattern
   belongs_to :advice
   belongs_to :resolution
+
+  # Scopes
+  scope :accepted, -> { joins(:resolution).where(resolutions: {name: 'ACCEPTED'}) }
+  scope :rejected, -> { joins(:resolution).where(resolutions: {name: 'REJECTED'}) }
+  scope :automatic, -> { joins(:resolution).where(resolutions: {name: 'AUTOMATIC'}) }
 end
 

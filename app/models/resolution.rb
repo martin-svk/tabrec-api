@@ -1,5 +1,5 @@
 ##
-# Resolution of the recommendation, can be one of ACCEPTED, REJECTED, AUTOMATIC_EXECUTION
+# Resolution of the recommendation, can be one of ACCEPTED, REJECTED, AUTOMATIC
 #
 class Resolution < ActiveRecord::Base
   has_many :logs
