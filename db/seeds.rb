@@ -43,3 +43,19 @@ if Pattern.count != PATTERN_SEQUENCES.size
     Pattern.create!(sequence: seq, desc: PATTERN_DESCS[index], advice_id: PATTERN_ADVICE_IDS[index])
   end
 end
+
+# --------------------------------
+# Resolution seeds
+# --------------------------------
+
+RESOLUTIONS = %w(ACCEPTED REJECTED AUTOMATIC)
+RESOLUTION_DESCS = [ 'User manually accepted recommendation', 'User manually rejected recommendation',
+                    'Recommendation was automatically accepted (aggresive mode)' ]
+
+if Resolution.count != RESOLUTIONS.size
+  Resolution.delete_all
+  ActiveRecord::Base.connection.reset_pk_sequence!(Resolution.table_name)
+  RESOLUTIONS.each_with_index do |resolution, index|
+    Resolution.create!(name: resolution, desc: RESOLUTION_DESCS[index])
+  end
+end
