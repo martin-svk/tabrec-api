@@ -6,9 +6,14 @@ class UserRequestsTest < MiniTest::Test
     assert_equal 200, last_response.status
   end
 
-  def test_get_specific_user_should_return_200_ok
+  def test_successful_get_specific_user_should_return_200_ok
     get "/users/#{sample_user_id}"
     assert_equal 200, last_response.status
+  end
+
+  def test_failure_get_specific_user_should_return_404_not_found
+    get '/users/NON_EXISTING_USER_ID'
+    assert_equal 404, last_response.status
   end
 
   def test_response_should_be_json
