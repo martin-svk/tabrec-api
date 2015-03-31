@@ -4,7 +4,7 @@
 #
 class Log < ActiveRecord::Base
   belongs_to :user
-  belongs_to :event
+  belongs_to :pattern
   belongs_to :advice
   belongs_to :resolution
 end
