@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141129121403) do
+ActiveRecord::Schema.define(version: 20150331083856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,9 +34,15 @@ ActiveRecord::Schema.define(version: 20141129121403) do
 
   create_table "logs", force: :cascade do |t|
     t.string   "user_id"
-    t.integer  "event_id"
     t.integer  "advice_id"
     t.integer  "resolution_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "pattern_id"
+  end
+
+  create_table "patterns", force: :cascade do |t|
+    t.string   "sequence"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
