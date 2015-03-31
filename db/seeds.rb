@@ -1,4 +1,4 @@
-# More will be defined later
+# Event seeds
 EVENTS = %w(TAB_CREATED TAB_REMOVED TAB_ACTIVATED TAB_MOVED TAB_UPDATED TAB_ATTACHED TAB_DETACHED)
 DESCS = [
           'New tab was opened', 'Tab was closed', 'Tab was focused', 'Tab was moved within window',
@@ -10,6 +10,16 @@ DESCS = [
 if Event.count != EVENTS.size
   Event.delete_all
   EVENTS.each_with_index do |event, index|
-    Event.create(name: event, desc: DESCS[index])
+    Event.create!(name: event, desc: DESCS[index])
+  end
+end
+
+# Pattern seeds
+SEQUENCES = [ 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED' ]
+
+if Pattern.count != SEQUENCES.size
+  Pattern.delete_all
+  SEQUENCES.each do |seq|
+    Pattern.create!(sequence: seq)
   end
 end
