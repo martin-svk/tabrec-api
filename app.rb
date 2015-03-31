@@ -178,6 +178,20 @@ class TabRec < Sinatra::Base
     json rec_stats
   end
 
+  # Recommender user stats
+  # --------------------------------
+  get '/stats/rec/:id' do
+    uid = User.find(params[:id])
+    rec_stats = {
+      provided: Log.from_user(uid).count,
+      accepted: Log.from_user(uid).accepted.count,
+      rejected: Log.from_user(uid).rejected.count,
+      automatic: Log.from_user(uid).automatic.count
+    }
+    status 200
+    json rec_stats
+  end
+
   # --------------------------------------------------------------------------------------------------------------------
   # Patterns
   # --------------------------------------------------------------------------------------------------------------------

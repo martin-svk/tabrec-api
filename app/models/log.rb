@@ -9,6 +9,7 @@ class Log < ActiveRecord::Base
   belongs_to :resolution
 
   # Scopes
+  scope :from_user, -> (uid) { joins(:user).where(users: {id: uid}) }
   scope :accepted, -> { joins(:resolution).where(resolutions: {name: 'ACCEPTED'}) }
   scope :rejected, -> { joins(:resolution).where(resolutions: {name: 'REJECTED'}) }
   scope :automatic, -> { joins(:resolution).where(resolutions: {name: 'AUTOMATIC'}) }
