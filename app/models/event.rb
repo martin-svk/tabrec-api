@@ -3,7 +3,6 @@
 # Example: TAB_CLOSE, TAB_CREATE
 #
 class Event < ActiveRecord::Base
-  has_many :logs
   has_many :usage_logs
 
   validates :name, presence: true
