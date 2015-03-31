@@ -6,8 +6,18 @@ class UserRequestsTest < MiniTest::Test
     assert_equal 200, last_response.status
   end
 
+  def test_get_specific_user_should_return_200_ok
+    get "/users/#{sample_user_id}"
+    assert_equal 200, last_response.status
+  end
+
   def test_response_should_be_json
     get '/users'
+    assert_equal 'application/json', last_response.headers['Content-Type']
+  end
+
+  def test_get_specific_user_response_should_be_json
+    get "/users/#{sample_user_id}"
     assert_equal 'application/json', last_response.headers['Content-Type']
   end
 
