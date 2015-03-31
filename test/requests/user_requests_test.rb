@@ -1,5 +1,4 @@
 require_relative '../test_helper.rb'
-require 'pry'
 
 class UserRequestsTest < MiniTest::Test
   def test_get_users_should_return_200_ok

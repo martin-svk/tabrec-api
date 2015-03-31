@@ -16,4 +16,8 @@ def json(request_body)
   JSON.parse(request_body, symbolize_names: true)
 end
 
+def sample_user_id
+  User.order('RANDOM()').first.id
+end
+
 # TODO: Resolve test config, USE TEST DB!!! currently development DB is used.
