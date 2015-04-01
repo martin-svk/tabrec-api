@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331102051) do
+ActiveRecord::Schema.define(version: 20150401091145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,10 @@ ActiveRecord::Schema.define(version: 20150331102051) do
     t.datetime "updated_at"
     t.integer  "advice_id"
     t.string   "desc"
+    t.string   "name"
   end
+
+  add_index "patterns", ["name"], name: "index_patterns_on_name", using: :btree
 
   create_table "resolutions", force: :cascade do |t|
     t.string   "name"

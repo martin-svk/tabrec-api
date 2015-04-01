@@ -33,6 +33,7 @@ end
 # Pattern seeds
 # --------------------------------
 PATTERN_SEQUENCES = [ 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED' ]
+PATTERN_NAMES = [ 'MULTI_ACTIVATE' ]
 PATTERN_ADVICE_IDS = [ Advice.find_by(name: 'TAB_DOMAIN_SORT').id ]
 PATTERN_DESCS = [ 'User focused four tabs in a small time gap.' ]
 
@@ -40,7 +41,7 @@ if Pattern.count != PATTERN_SEQUENCES.size
   Pattern.delete_all
   ActiveRecord::Base.connection.reset_pk_sequence!(Pattern.table_name)
   PATTERN_SEQUENCES.each_with_index do |seq, index|
-    Pattern.create!(sequence: seq, desc: PATTERN_DESCS[index], advice_id: PATTERN_ADVICE_IDS[index])
+    Pattern.create!(sequence: seq, name: PATTERN_NAMES[index], desc: PATTERN_DESCS[index], advice_id: PATTERN_ADVICE_IDS[index])
   end
 end
 
