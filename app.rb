@@ -165,6 +165,31 @@ class TabRec < Sinatra::Base
     json logs
   end
 
+  # Create
+  # --------------------------------
+  post '/logs/rec' do
+    log_data = params[:log]
+
+    # Mandatory attributes
+    pattern_name = log_data[:pattern]
+    resolution_name = log_data[:resolution]
+    user_id = log_data[:user_id]
+
+    # Creating log record
+    pattern_id = Pattern.find_by(name: pattern_name).id
+    resolution_id = Resolution.find_by(name: resolution_name).id
+    log = Log.new(user_id: user_id, pattern_id: pattern_id, resolution_id: resolution_id)
+
+    # Saving
+    if log.save
+      status 201
+      json message: 'Success'
+    else
+      status 422
+      json log.errors
+    end
+  end
+
   # Recommender stats
   # --------------------------------
   get '/stats/rec' do
