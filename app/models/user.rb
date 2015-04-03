@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :usage_logs
 
   validates :experience, presence: true, inclusion: { in: %w(default beginner advanced expert) }
-  validates :rec_mode, presence: true, inclusion: { in: %w(default interactive semi-interactive aggressive) }
+  validates :rec_mode, presence: true, inclusion: { in: %w(default interactive automatic) }
 
   def bstats
     created = ulogs_with_event('TAB_CREATED').count
