@@ -18,8 +18,8 @@ end
 # --------------------------------
 # Advice seeds
 # --------------------------------
-ADVICES = %w(TAB_DOMAIN_SORT)
-ADVICE_DESCS = [ 'Will sort all opened tabs in current window by domain URLs' ]
+ADVICES = %w(TAB_DOMAIN_SORT TAB_DOMAIN_SORT_V2)
+ADVICE_DESCS = [ 'Will sort all opened tabs in current window by domain URLs', 'Will wait some time after execution and dont trigger again.' ]
 
 if Advice.count != ADVICES.size
   Advice.delete_all
@@ -32,10 +32,10 @@ end
 # --------------------------------
 # Pattern seeds
 # --------------------------------
-PATTERN_SEQUENCES = [ 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED' ]
-PATTERN_NAMES = [ 'MULTI_ACTIVATE' ]
-PATTERN_ADVICE_IDS = [ Advice.find_by(name: 'TAB_DOMAIN_SORT').id ]
-PATTERN_DESCS = [ 'User focused four tabs in a small time gap.' ]
+PATTERN_SEQUENCES = [ 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED', 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED' ]
+PATTERN_NAMES = [ 'MULTI_ACTIVATE', 'MULTI_ACTIVATE_V2' ]
+PATTERN_ADVICE_IDS = [ Advice.find_by(name: 'TAB_DOMAIN_SORT').id, Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id ]
+PATTERN_DESCS = [ 'User focused four tabs in a small time gap.', 'User focused four tabs in a small time gap (excluding some time after accepting).' ]
 
 if Pattern.count != PATTERN_SEQUENCES.size
   Pattern.delete_all
