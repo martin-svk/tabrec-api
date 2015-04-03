@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401113640) do
+ActiveRecord::Schema.define(version: 20150403080004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,10 @@ ActiveRecord::Schema.define(version: 20150401113640) do
     t.integer  "pattern_id"
   end
 
+  add_index "logs", ["pattern_id"], name: "index_logs_on_pattern_id", using: :btree
+  add_index "logs", ["resolution_id"], name: "index_logs_on_resolution_id", using: :btree
+  add_index "logs", ["user_id"], name: "index_logs_on_user_id", using: :btree
+
   create_table "patterns", force: :cascade do |t|
     t.string   "sequence"
     t.datetime "created_at"
@@ -51,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150401113640) do
     t.string   "name"
   end
 
+  add_index "patterns", ["advice_id"], name: "index_patterns_on_advice_id", using: :btree
   add_index "patterns", ["name"], name: "index_patterns_on_name", using: :btree
 
   create_table "resolutions", force: :cascade do |t|
@@ -77,6 +82,9 @@ ActiveRecord::Schema.define(version: 20150401113640) do
     t.string   "path"
     t.string   "subdomain"
   end
+
+  add_index "usage_logs", ["event_id"], name: "index_usage_logs_on_event_id", using: :btree
+  add_index "usage_logs", ["user_id"], name: "index_usage_logs_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "experience"
