@@ -49,9 +49,9 @@ end
 # Resolution seeds
 # --------------------------------
 
-RESOLUTIONS = %w(ACCEPTED REJECTED AUTOMATIC)
+RESOLUTIONS = %w(ACCEPTED REJECTED REVERTED AUTOMATIC)
 RESOLUTION_DESCS = [ 'User manually accepted recommendation', 'User manually rejected recommendation',
-                    'Recommendation was automatically accepted (aggresive mode)' ]
+                    'User accepted but later reverted recommendation', 'Recommendation was automatically accepted' ]
 
 if Resolution.count != RESOLUTIONS.size
   Resolution.delete_all
