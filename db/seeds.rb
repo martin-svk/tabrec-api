@@ -18,11 +18,10 @@ end
 # --------------------------------
 # Advice seeds
 # --------------------------------
-ADVICES = %w(TAB_DOMAIN_SORT TAB_DOMAIN_SORT_V2 TAB_DOMAIN_SORT_V3)
+ADVICES = %w(TAB_DOMAIN_SORT TAB_DOMAIN_SORT_V2)
 ADVICE_DESCS = [
   'Will sort all opened tabs in current window by domain URLs',
-  'Will wait some time after execution and dont trigger again.',
-  'Will also check if focues tabs are not next to each other and will use running average instead of exact max_gap time.'
+  'Will sort all opened tabs in current window by domain URLs and wait some time after execution and dont trigger again.'
 ]
 
 if Advice.count != ADVICES.size
@@ -39,14 +38,17 @@ end
 PATTERN_SEQUENCES = [
   'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
   'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
+  'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
   'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED'
 ]
-PATTERN_NAMES = [ 'MULTI_ACTIVATE', 'MULTI_ACTIVATE_V2', 'MULTI_ACTIVATE_V3' ]
-PATTERN_ADVICE_IDS = [ Advice.find_by(name: 'TAB_DOMAIN_SORT').id, Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id, Advice.find_by(name: 'TAB_DOMAIN_SORT_V3').id]
+PATTERN_NAMES = [ 'MULTI_ACTIVATE', 'MULTI_ACTIVATE_V2', 'MULTI_ACTIVATE_V3', 'MULTI_ACTIVATE_V4' ]
+PATTERN_ADVICE_IDS = [ Advice.find_by(name: 'TAB_DOMAIN_SORT').id, Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id,
+                       Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id, Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id]
 PATTERN_DESCS = [
   'User focused four tabs in a constant time gap.',
   'User focused four tabs in a constant time gap (excluding some time after accepting).',
-  'User focused four tabs (excluding tabs next to each other) in his running average time gap.'
+  'User focused four tabs (excluding tabs next to each other) in his running average time gap.',
+  'User focused four tabs (at least 3 different tab ids) in thresholded running average time gap.'
 ]
 
 if Pattern.count != PATTERN_SEQUENCES.size
