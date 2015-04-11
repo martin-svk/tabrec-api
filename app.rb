@@ -197,6 +197,7 @@ class TabRec < Sinatra::Base
       provided: Log.count,
       accepted: Log.accepted.count,
       rejected: Log.rejected.count,
+      reverted: Log.reverted.count,
       automatic: Log.automatic.count
     }
     status 200
@@ -211,6 +212,7 @@ class TabRec < Sinatra::Base
       provided: Log.from_user(uid).count,
       accepted: Log.from_user(uid).accepted.count,
       rejected: Log.from_user(uid).rejected.count,
+      reverted: Log.from_user(uid).reverted.count,
       automatic: Log.from_user(uid).automatic.count
     }
     status 200
