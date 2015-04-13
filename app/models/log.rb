@@ -9,6 +9,7 @@ class Log < ActiveRecord::Base
 
   # Scopes
   scope :from_user, -> (uid) { joins(:user).where(users: {id: uid}) }
+  scope :for_pattern, -> (pattern_name) { joins(:pattern).where(patterns: {name: pattern_name}) }
   scope :accepted, -> { joins(:resolution).where(resolutions: {name: 'ACCEPTED'}) }
   scope :rejected, -> { joins(:resolution).where(resolutions: {name: 'REJECTED'}) }
   scope :reverted, -> { joins(:resolution).where(resolutions: {name: 'REVERTED'}) }

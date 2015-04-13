@@ -31,7 +31,7 @@ namespace :rec_logs do
     puts
     puts "-----------   PATTERNS   -------------"
     puts
-    patterns = Pattern.select(:id, :sequence, :desc).joins(:advice).select('advices.name as advice_name')
+    patterns = Pattern.select(:name, :sequence, :desc).joins(:advice).select('advices.name as advice_name')
 
     patterns.each do |pattern|
       puts pattern.attributes
@@ -45,5 +45,30 @@ namespace :rec_logs do
     advices.each do |advice|
       puts advice.attributes
     end
+
+    puts
+    puts "---   STATS PER PATTERN VERSION   ---"
+    puts
+
+    patterns.each do |pattern|
+      pname = pattern.name
+
+      puts
+      puts pname
+      puts
+
+      logs_pv = Log.for_pattern(pname).count
+      accepted_pv = Log.for_pattern(pname).accepted.count
+      rejected_pv = Log.for_pattern(pname).rejected.count
+      reverted_pv = Log.for_pattern(pname).reverted.count
+      automatic_pv = Log.for_pattern(pname).automatic.count
+
+      puts "Provided advices #{logs_pv}"
+      puts "Accepted advices #{(accepted_pv.to_f / logs_pv * 100).round(2)}%"
+      puts "Rejected advices #{(rejected_pv.to_f / logs_pv * 100).round(2)}%"
+      puts "Reverted advices #{(reverted_pv.to_f / logs_pv * 100).round(2)}%"
+      puts "Automatic advices #{(automatic_pv.to_f / logs_pv * 100).round(2)}%"
+    end
+
   end
 end
