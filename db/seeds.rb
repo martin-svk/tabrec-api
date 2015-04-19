@@ -4,11 +4,11 @@
 EVENTS_HASH = {
   TAB_CREATED: 'New tab was opened',
   TAB_REMOVED: 'Tab was closed',
-  TAB_ACTIVATED: 'Tab was focues',
+  TAB_ACTIVATED: 'Tab was focused',
   TAB_MOVED: 'Tab was moved within window',
   TAB_UPDATED: 'Tab was updated (i.e. new url inserted)',
   TAB_ATTACHED: 'Tab was moved between windows (docked to new)',
-  TAB_DETACHED: 'Tab was moved between windows (detached from old)',
+  TAB_DETACHED: 'Tab was moved between windows (detached from old)'
 }
 
 # Clear events table
@@ -25,7 +25,8 @@ end
 # --------------------------------
 ADVICES_HASH = {
   TAB_DOMAIN_SORT: 'Will sort all opened tabs in current window by domain URLs',
-  TAB_DOMAIN_SORT_V2: 'Will sort all opened tabs in current window by domain URLs and wait some time after execution and dont trigger again.'
+  TAB_DOMAIN_SORT_V2: 'Will sort all opened tabs in current window by domain URLs and wait some time after execution and dont trigger again.',
+  NO_ADVICE: 'No action is performed'
 }
 
 if Advice.count != ADVICES_HASH.size
@@ -86,7 +87,9 @@ RESOLUTIONS_HASH = {
   ACCEPTED: 'User manually accepted recommendation',
   REJECTED: 'User manually rejected recommendation',
   REVERTED: 'User accepted but later reverted recommendation',
-  AUTOMATIC: 'Recommendation was automatically accepted'
+  AUTOMATIC: 'Recommendation was automatically accepted',
+  YES: 'User approved our prediction',
+  NO: 'User denied our prediction'
 }
 
 if Resolution.count != RESOLUTIONS_HASH.size
