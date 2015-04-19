@@ -1,76 +1,98 @@
 # --------------------------------
 # Event seeds
 # --------------------------------
-EVENTS = %w(TAB_CREATED TAB_REMOVED TAB_ACTIVATED TAB_MOVED TAB_UPDATED TAB_ATTACHED TAB_DETACHED)
-EVENT_DESCS = [ 'New tab was opened', 'Tab was closed', 'Tab was focused', 'Tab was moved within window',
-                'Tab was updated (ie. new url inserted)', 'Tab was moved between windows (docked to new)',
-                'Tab was moved between windows (detached from old)' ]
+EVENTS_HASH = {
+  TAB_CREATED: 'New tab was opened',
+  TAB_REMOVED: 'Tab was closed',
+  TAB_ACTIVATED: 'Tab was focues',
+  TAB_MOVED: 'Tab was moved within window',
+  TAB_UPDATED: 'Tab was updated (i.e. new url inserted)',
+  TAB_ATTACHED: 'Tab was moved between windows (docked to new)',
+  TAB_DETACHED: 'Tab was moved between windows (detached from old)',
+}
 
 # Clear events table
-if Event.count != EVENTS.size
+if Event.count != EVENTS_HASH.size
   Event.delete_all
   ActiveRecord::Base.connection.reset_pk_sequence!(Event.table_name)
-  EVENTS.each_with_index do |event, index|
-    Event.create!(name: event, desc: EVENT_DESCS[index])
+  EVENTS_HASH.each  do |name, desc|
+    Event.create!(name: name, desc: desc)
   end
 end
 
 # --------------------------------
 # Advice seeds
 # --------------------------------
-ADVICES = %w(TAB_DOMAIN_SORT TAB_DOMAIN_SORT_V2)
-ADVICE_DESCS = [
-  'Will sort all opened tabs in current window by domain URLs',
-  'Will sort all opened tabs in current window by domain URLs and wait some time after execution and dont trigger again.'
-]
+ADVICES_HASH = {
+  TAB_DOMAIN_SORT: 'Will sort all opened tabs in current window by domain URLs',
+  TAB_DOMAIN_SORT_V2: 'Will sort all opened tabs in current window by domain URLs and wait some time after execution and dont trigger again.'
+}
 
-if Advice.count != ADVICES.size
+if Advice.count != ADVICES_HASH.size
   Advice.delete_all
   ActiveRecord::Base.connection.reset_pk_sequence!(Advice.table_name)
-  ADVICES.each_with_index do |advice, index|
-    Advice.create!(name: advice, desc: ADVICE_DESCS[index])
+  ADVICES_HASH.each do |name, desc|
+    Advice.create!(name: name, desc: desc)
   end
 end
 
 # --------------------------------
 # Pattern seeds
 # --------------------------------
-PATTERN_SEQUENCES = [
-  'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
-  'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
-  'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
-  'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED'
-]
-PATTERN_NAMES = [ 'MULTI_ACTIVATE', 'MULTI_ACTIVATE_V2', 'MULTI_ACTIVATE_V3', 'MULTI_ACTIVATE_V4' ]
-PATTERN_ADVICE_IDS = [ Advice.find_by(name: 'TAB_DOMAIN_SORT').id, Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id,
-                       Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id, Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id]
-PATTERN_DESCS = [
-  'User focused four tabs in a constant time gap.',
-  'User focused four tabs in a constant time gap (excluding some time after accepting).',
-  'User focused four tabs (excluding tabs next to each other) in his running average time gap.',
-  'User focused four tabs (at least 3 different tab ids) in thresholded running average time gap.'
+PATTERNS = [
+  {
+    name: 'MULTI_ACTIVATE',
+    desc: 'User focused four tabs in a constant time gap.',
+    sequence: 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
+    advice_id: Advice.find_by(name: 'TAB_DOMAIN_SORT').id
+  },
+  {
+    name: 'MULTI_ACTIVATE_V2',
+    desc: 'User focused four tabs in a constant time gap (excluding some time after accepting).',
+    sequence: 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
+    advice_id: Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id
+  },
+  {
+    name: 'MULTI_ACTIVATE_V3',
+    desc: 'User focused four tabs (excluding tabs next to each other) in his running average time gap.',
+    sequence: 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
+    advice_id: Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id
+  },
+  {
+    name: 'MULTI_ACTIVATE_V4',
+    desc: 'User focused four tabs (at least 3 different tab ids) in thresholded running average time gap.',
+    sequence: 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
+    advice_id: Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id
+  }
 ]
 
-if Pattern.count != PATTERN_SEQUENCES.size
+if Pattern.count != PATTERNS.size
   Pattern.delete_all
   ActiveRecord::Base.connection.reset_pk_sequence!(Pattern.table_name)
-  PATTERN_SEQUENCES.each_with_index do |seq, index|
-    Pattern.create!(sequence: seq, name: PATTERN_NAMES[index], desc: PATTERN_DESCS[index], advice_id: PATTERN_ADVICE_IDS[index])
+  PATTERNS.each do |pattern_hash|
+    Pattern.create!(
+      name: pattern_hash[:name],
+      desc: pattern_hash[:desc],
+      sequence: pattern_hash[:sequence],
+      advice_id: pattern_hash[:advice_id]
+    )
   end
 end
 
 # --------------------------------
 # Resolution seeds
 # --------------------------------
+RESOLUTIONS_HASH = {
+  ACCEPTED: 'User manually accepted recommendation',
+  REJECTED: 'User manually rejected recommendation',
+  REVERTED: 'User accepted but later reverted recommendation',
+  AUTOMATIC: 'Recommendation was automatically accepted'
+}
 
-RESOLUTIONS = %w(ACCEPTED REJECTED REVERTED AUTOMATIC)
-RESOLUTION_DESCS = [ 'User manually accepted recommendation', 'User manually rejected recommendation',
-                    'User accepted but later reverted recommendation', 'Recommendation was automatically accepted' ]
-
-if Resolution.count != RESOLUTIONS.size
+if Resolution.count != RESOLUTIONS_HASH.size
   Resolution.delete_all
   ActiveRecord::Base.connection.reset_pk_sequence!(Resolution.table_name)
-  RESOLUTIONS.each_with_index do |resolution, index|
-    Resolution.create!(name: resolution, desc: RESOLUTION_DESCS[index])
+  RESOLUTIONS_HASH.each do |name, desc|
+    Resolution.create!(name: name, desc: desc)
   end
 end
