@@ -64,6 +64,24 @@ PATTERNS = [
     desc: 'User focused four tabs (at least 3 different tab ids) in thresholded running average time gap.',
     sequence: 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
     advice_id: Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id
+  },
+  {
+    name: 'COMPARE',
+    desc: 'User is swiching between two tabs (at least 4 activates) in thresholded running average time gap.',
+    sequence: 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
+    advice_id: Advice.find_by(name: 'NO_ADVICE').id
+  },
+  {
+    name: 'REFRESH',
+    desc: 'User is monitoring (refreshing 3 times) specific tab in a constant time gap.',
+    sequence: 'TAB_UPDATED TAB_UPDATED TAB_UPDATED',
+    advice_id: Advice.find_by(name: 'NO_ADVICE').id
+  },
+  {
+    name: 'MULTI_CLOSE',
+    desc: 'User closed four tabs in thresholded running average time gap.',
+    sequence: 'TAB_REMOVED TAB_REMOVED TAB_REMOVED',
+    advice_id: Advice.find_by(name: 'NO_ADVICE').id
   }
 ]
 

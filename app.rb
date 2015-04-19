@@ -225,7 +225,7 @@ class TabRec < Sinatra::Base
 
   # Index
   get '/patterns' do
-    patterns = Pattern.select(:id, :sequence, :desc).joins(:advice).select('advices.name as advice_name')
+    patterns = Pattern.select(:id, :name, :sequence, :desc).joins(:advice).select('advices.name as advice_name')
     status 200
     json patterns
   end
