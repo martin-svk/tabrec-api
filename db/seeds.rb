@@ -105,7 +105,9 @@ RESOLUTIONS_HASH = {
   ACCEPTED: 'User manually accepted recommendation',
   REJECTED: 'User manually rejected recommendation',
   REVERTED: 'User accepted but later reverted recommendation',
-  AUTOMATIC: 'Recommendation was automatically accepted'
+  AUTOMATIC: 'Recommendation was automatically accepted',
+  YES: 'User accepted our prediction',
+  NO: 'User denied our prediction'
 }
 
 if Resolution.count != RESOLUTIONS_HASH.size
