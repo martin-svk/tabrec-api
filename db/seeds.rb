@@ -66,19 +66,19 @@ PATTERNS = [
     advice_id: Advice.find_by(name: 'TAB_DOMAIN_SORT_V2').id
   },
   {
-    name: 'COMPARE',
+    name: 'COMPARE_V0',
     desc: 'User is swiching between two tabs (at least 4 activates) in thresholded running average time gap.',
     sequence: 'TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED',
     advice_id: Advice.find_by(name: 'NO_ADVICE').id
   },
   {
-    name: 'REFRESH',
+    name: 'REFRESH_V0',
     desc: 'User is monitoring (refreshing 3 times) specific tab in a constant time gap.',
     sequence: 'TAB_UPDATED TAB_UPDATED TAB_UPDATED',
     advice_id: Advice.find_by(name: 'NO_ADVICE').id
   },
   {
-    name: 'MULTI_CLOSE',
+    name: 'MULTI_CLOSE_V0',
     desc: 'User closed four tabs in thresholded running average time gap.',
     sequence: 'TAB_REMOVED TAB_REMOVED TAB_REMOVED',
     advice_id: Advice.find_by(name: 'NO_ADVICE').id
@@ -105,9 +105,7 @@ RESOLUTIONS_HASH = {
   ACCEPTED: 'User manually accepted recommendation',
   REJECTED: 'User manually rejected recommendation',
   REVERTED: 'User accepted but later reverted recommendation',
-  AUTOMATIC: 'Recommendation was automatically accepted',
-  YES: 'User approved our prediction',
-  NO: 'User denied our prediction'
+  AUTOMATIC: 'Recommendation was automatically accepted'
 }
 
 if Resolution.count != RESOLUTIONS_HASH.size
