@@ -97,8 +97,8 @@ PATTERNS = [
   },
   {
     name: 'MULTI_CLOSE_V0',
-    desc: 'User closed three tabs from same domain in thresholded running average time gap.',
-    sequence: 'TAB_REMOVED TAB_REMOVED TAB_REMOVED',
+    desc: 'User closed four tabs consecutively (without other event interuption) in thresholded running average time gap.',
+    sequence: 'TAB_REMOVED TAB_REMOVED TAB_REMOVED TAB_REMOVED',
     advice_id: Advice.find_by(name: 'NO_ADVICE').id
   }
 ]
