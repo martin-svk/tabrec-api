@@ -14,5 +14,7 @@ class Log < ActiveRecord::Base
   scope :rejected, -> { joins(:resolution).where(resolutions: {name: 'REJECTED'}) }
   scope :reverted, -> { joins(:resolution).where(resolutions: {name: 'REVERTED'}) }
   scope :automatic, -> { joins(:resolution).where(resolutions: {name: 'AUTOMATIC'}) }
+  scope :yes, -> { joins(:resolution).where(resolutions: {name: 'YES'}) }
+  scope :no, -> { joins(:resolution).where(resolutions: {name: 'NO'}) }
 end
 

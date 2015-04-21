@@ -198,7 +198,9 @@ class TabRec < Sinatra::Base
       accepted: Log.accepted.count,
       rejected: Log.rejected.count,
       reverted: Log.reverted.count,
-      automatic: Log.automatic.count
+      automatic: Log.automatic.count,
+      yes: Log.yes.count,
+      no: Log.no.count
     }
     status 200
     json rec_stats
