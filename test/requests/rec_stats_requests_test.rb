@@ -15,7 +15,6 @@ class RecStatsRequestsTest < MiniTest::Test
     get "/stats/rec"
     data = json(last_response.body)
 
-    assert data[:automatic], 'Rec stats dont contains automatic field'
     assert data[:accepted], 'Rec stats dont contains accepted field'
     assert data[:rejected], 'Rec stats dont contains rejected field'
     assert data[:reverted], 'Rec stats dont contains reverted field'
@@ -35,7 +34,6 @@ class RecStatsRequestsTest < MiniTest::Test
     get "/stats/rec/#{sample_user_id}"
     data = json(last_response.body)
 
-    assert data[:automatic], 'User Rec stats dont contains automatic field'
     assert data[:accepted], 'User Rec stats dont contains accepted field'
     assert data[:rejected], 'User Rec stats dont contains rejected field'
     assert data[:reverted], 'User Rec stats dont contains reverted field'

@@ -195,10 +195,9 @@ class TabRec < Sinatra::Base
   get '/stats/rec' do
     rec_stats = {
       provided: Log.count,
-      accepted: Log.accepted.count,
+      accepted: Log.accepted.count + Log.automatic.count,
       rejected: Log.rejected.count,
       reverted: Log.reverted.count,
-      automatic: Log.automatic.count,
       yes: Log.yes.count,
       no: Log.no.count
     }
@@ -212,10 +211,11 @@ class TabRec < Sinatra::Base
     uid = User.find(params[:id])
     rec_stats = {
       provided: Log.from_user(uid).count,
-      accepted: Log.from_user(uid).accepted.count,
+      accepted: Log.from_user(uid).accepted.count + Log.from_user(uid).automatic.count,
       rejected: Log.from_user(uid).rejected.count,
       reverted: Log.from_user(uid).reverted.count,
-      automatic: Log.from_user(uid).automatic.count
+      yes: Log.from_user(uid).yes.count,
+      no: Log.from_user(uid).no.count
     }
     status 200
     json rec_stats
