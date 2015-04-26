@@ -11,6 +11,8 @@ Requirements:
 * Bundler
 * PostgreSQL
 
+Setup:
+
 ```Bash
 # Get source code
 git clone git@github.com:martin-svk/tabrec-api.git
