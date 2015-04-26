@@ -7,8 +7,8 @@ default: &default
 development:
   <<: *default
   database: tabrec_development
-  username: martin
-  password: martin
+  username: username
+  password: password
   host: localhost
   port: 5432
 
