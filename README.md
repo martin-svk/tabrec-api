@@ -5,6 +5,12 @@ and Information Technology in Bratislava, Slovakia.
 
 ## Setup guide
 
+Requirements:
+
+* Ruby 2.2.1
+* Bundler
+* PostgreSQL
+
 ```Bash
 # Get source code
 git clone git@github.com:martin-svk/tabrec-api.git
