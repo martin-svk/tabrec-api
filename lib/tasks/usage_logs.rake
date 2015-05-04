@@ -38,8 +38,8 @@ namespace :ulogs do
     min_gap = 0
     max_gap = 5_000
     min_transaction_size = 3
-    min_support = 5 # percent
-    group = true
+    min_support = 0.5 # percent
+    group = false
 
     seq_builder = SequenceBuilderService.new(window_size, min_gap, max_gap, min_transaction_size)
     pds = DiscoveryService.new(min_support, group, seq_builder)
