@@ -1,0 +1,30 @@
+Mon May  4 17:13:34 CEST 2015
+Most common patterns:
+
+Events | [[1, "TAB_CREATED"], [2, "TAB_REMOVED"], [3, "TAB_ACTIVATED"], [4, "TAB_MOVED"], [5, "TAB_UPDATED"], [6, "TAB_ATTACHED"], [7, "TAB_DETACHED"]]
+Attributes | window size: 100 sec | max gap: 5 sec | grouped: false | min support: 5% of transactions
+
+Sequence: 55555555 | Occured: 4252 times
+Sequence: 5555555 | Occured: 5175 times
+Sequence: 555555 | Occured: 6579 times
+Sequence: 55555 | Occured: 9040 times
+Sequence: 3135 | Occured: 4685 times
+Sequence: 1355 | Occured: 5344 times
+Sequence: 3333 | Occured: 5556 times
+Sequence: 3555 | Occured: 7166 times
+Sequence: 5555 | Occured: 13495 times
+Sequence: 352 | Occured: 3996 times
+Sequence: 533 | Occured: 4110 times
+Sequence: 553 | Occured: 4571 times
+Sequence: 513 | Occured: 4691 times
+Sequence: 313 | Occured: 5768 times
+Sequence: 535 | Occured: 6111 times
+Sequence: 523 | Occured: 6831 times
+Sequence: 233 | Occured: 7293 times
+Sequence: 353 | Occured: 7422 times
+Sequence: 335 | Occured: 7543 times
+Sequence: 323 | Occured: 10242 times
+Sequence: 333 | Occured: 11624 times
+Sequence: 355 | Occured: 17449 times
+Sequence: 135 | Occured: 17762 times
+Sequence: 555 | Occured: 23548 times
