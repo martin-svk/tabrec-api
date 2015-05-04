@@ -3,8 +3,13 @@ namespace :rec_logs do
   task :stats do
     users_count = User.count
     logs_count = Log.count
+
     accepted_count = Log.accepted.count
+    accepted_count += Log.yes.count
+
     rejected_count = Log.rejected.count
+    rejected_count += Log.no.count
+
     reverted_count = Log.reverted.count
     automatic_count = Log.automatic.count
 
@@ -58,8 +63,13 @@ namespace :rec_logs do
       puts
 
       logs_pv = Log.for_pattern(pname).count
+
       accepted_pv = Log.for_pattern(pname).accepted.count
+      accepted_pv += Log.for_pattern(pname).yes.count
+
       rejected_pv = Log.for_pattern(pname).rejected.count
+      rejected_pv += Log.for_pattern(pname).no.count
+
       reverted_pv = Log.for_pattern(pname).reverted.count
       automatic_pv = Log.for_pattern(pname).automatic.count
 
