@@ -1,5 +1,5 @@
 namespace :rec_logs do
-  desc "Exploratory analysis of recommendation logs."
+  desc 'Exploratory analysis of recommendation logs.'
   task :stats do
     users_count = User.count
     logs_count = Log.count
@@ -13,7 +13,7 @@ namespace :rec_logs do
     reverted_count = Log.reverted.count
     automatic_count = Log.automatic.count
 
-    puts "------------   BASICS   --------------"
+    puts '------------   BASICS   --------------'
     puts
 
     puts "Number of users in DB: #{users_count}"
@@ -24,7 +24,7 @@ namespace :rec_logs do
     puts "Number of automatic advices in DB: #{automatic_count}"
 
     puts
-    puts "-----------   STATS   -------------"
+    puts '-----------   STATS   -------------'
     puts
 
     puts "Average logs/user #{(logs_count.to_f / users_count).round(2)}"
@@ -34,7 +34,7 @@ namespace :rec_logs do
     puts "Automatic advices #{(automatic_count.to_f / logs_count * 100).round(2)}%"
 
     puts
-    puts "-----------   PATTERNS   -------------"
+    puts '-----------   PATTERNS   -------------'
     puts
     patterns = Pattern.select(:name, :sequence, :desc).joins(:advice).select('advices.name as advice_name')
 
@@ -43,7 +43,7 @@ namespace :rec_logs do
     end
 
     puts
-    puts "-----------   ADVICES   -------------"
+    puts '-----------   ADVICES   -------------'
     puts
     advices = Advice.select(:id, :name, :desc)
 
@@ -52,7 +52,7 @@ namespace :rec_logs do
     end
 
     puts
-    puts "---   STATS PER PATTERN VERSION   ---"
+    puts '---   STATS PER PATTERN VERSION   ---'
     puts
 
     patterns.each do |pattern|
@@ -79,6 +79,5 @@ namespace :rec_logs do
       puts "Reverted advices #{(reverted_pv.to_f / logs_pv * 100).round(2)}%"
       puts "Automatic advices #{(automatic_pv.to_f / logs_pv * 100).round(2)}%"
     end
-
   end
 end
