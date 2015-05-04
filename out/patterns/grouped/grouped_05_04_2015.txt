@@ -1,0 +1,30 @@
+
+Most common patterns:
+
+Events | [[1, "TAB_CREATED"], [2, "TAB_REMOVED"], [3, "TAB_ACTIVATED"], [4, "TAB_MOVED"], [5, "TAB_UPDATED"], [6, "TAB_ATTACHED"], [7, "TAB_DETACHED"]]
+Attributes | window size: 100 sec | max gap: 5 sec | grouped: true | min support: 5% of transactions
+
+Sequence: TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED >  | Occured: 4252 times
+Sequence: TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED >  | Occured: 5175 times
+Sequence: TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED >  | Occured: 6579 times
+Sequence: TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED >  | Occured: 9040 times
+Sequence: TAB_ACTIVATED > NEW_TAB >  | Occured: 4685 times
+Sequence: NEW_TAB > TAB_UPDATED >  | Occured: 5344 times
+Sequence: TAB_ACTIVATED > TAB_ACTIVATED > TAB_ACTIVATED > TAB_ACTIVATED >  | Occured: 5556 times
+Sequence: TAB_ACTIVATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED >  | Occured: 7166 times
+Sequence: TAB_UPDATED > TAB_UPDATED > TAB_UPDATED > TAB_UPDATED >  | Occured: 13495 times
+Sequence: TAB_ACTIVATED > TAB_UPDATED > TAB_REMOVED >  | Occured: 3996 times
+Sequence: TAB_UPDATED > TAB_ACTIVATED > TAB_ACTIVATED >  | Occured: 4110 times
+Sequence: TAB_UPDATED > TAB_UPDATED > TAB_ACTIVATED >  | Occured: 4571 times
+Sequence: TAB_UPDATED > TAB_CREATED > TAB_ACTIVATED >  | Occured: 4691 times
+Sequence: TAB_ACTIVATED > TAB_CREATED > TAB_ACTIVATED >  | Occured: 5768 times
+Sequence: TAB_UPDATED > TAB_ACTIVATED > TAB_UPDATED >  | Occured: 6111 times
+Sequence: TAB_UPDATED > CLOSE_CURRENT_TAB >  | Occured: 6831 times
+Sequence: CLOSE_CURRENT_TAB > TAB_ACTIVATED >  | Occured: 7293 times
+Sequence: TAB_ACTIVATED > TAB_UPDATED > TAB_ACTIVATED >  | Occured: 7422 times
+Sequence: TAB_ACTIVATED > TAB_ACTIVATED > TAB_UPDATED >  | Occured: 7543 times
+Sequence: TAB_ACTIVATED > CLOSE_CURRENT_TAB >  | Occured: 10242 times
+Sequence: TAB_ACTIVATED > TAB_ACTIVATED > TAB_ACTIVATED >  | Occured: 11624 times
+Sequence: TAB_ACTIVATED > TAB_UPDATED > TAB_UPDATED >  | Occured: 17449 times
+Sequence: NEW_TAB >  | Occured: 17762 times
+Sequence: TAB_UPDATED > TAB_UPDATED > TAB_UPDATED >  | Occured: 23548 times
