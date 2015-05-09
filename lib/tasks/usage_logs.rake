@@ -25,13 +25,21 @@ namespace :ulogs do
 
     puts '------------   EVENTS   --------------'
 
-    puts "ULogs for TAB_CREATED: #{UsageLog.where(event_id: 1).count}"
-    puts "ULogs for TAB_REMOVED: #{UsageLog.where(event_id: 2).count}"
-    puts "ULogs for TAB_ACTIVATED: #{UsageLog.where(event_id: 3).count}"
-    puts "ULogs for TAB_MOVED: #{UsageLog.where(event_id: 4).count}"
-    puts "ULogs for TAB_UPDATED: #{UsageLog.where(event_id: 5).count}"
-    puts "ULogs for TAB_ATTACHED: #{UsageLog.where(event_id: 6).count}"
-    puts "ULogs for TAB_DETACHED: #{UsageLog.where(event_id: 7).count}"
+    tab_created = UsageLog.where(event_id: 1).count
+    tab_removed = UsageLog.where(event_id: 2).count
+    tab_activated = UsageLog.where(event_id: 3).count
+    tab_moved = UsageLog.where(event_id: 4).count
+    tab_updated = UsageLog.where(event_id: 5).count
+    tab_attached = UsageLog.where(event_id: 6).count
+    tab_detached = UsageLog.where(event_id: 7).count
+
+    puts "ULogs for TAB_CREATED: #{tab_created} => #{(tab_created / ulogs_count.to_f * 100).round(2)}%"
+    puts "ULogs for TAB_REMOVED: #{tab_removed} => #{(tab_removed / ulogs_count.to_f * 100).round(2)}%"
+    puts "ULogs for TAB_ACTIVATED: #{tab_activated} => #{(tab_activated / ulogs_count.to_f * 100).round(2)}%"
+    puts "ULogs for TAB_UPDATED: #{tab_updated} => #{(tab_updated / ulogs_count.to_f * 100).round(2)}%"
+    puts "ULogs for TAB_MOVED: #{tab_moved} => #{(tab_moved / ulogs_count.to_f * 100).round(2)}%"
+    puts "ULogs for TAB_ATTACHED: #{tab_attached} => #{(tab_attached / ulogs_count.to_f * 100).round(2)}%"
+    puts "ULogs for TAB_DETACHED: #{tab_detached} => #{(tab_detached / ulogs_count.to_f * 100).round(2)}%"
   end
 
   desc 'Discover the most common transactions (patterns)'
