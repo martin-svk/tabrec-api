@@ -66,6 +66,7 @@ namespace :rec_logs do
       puts
 
       logs_pv = Log.for_pattern(pname).count
+      logs_users = Log.for_pattern(pname).pluck(:user_id).uniq.count
 
       accepted_pv = Log.for_pattern(pname).accepted.count
       accepted_pv += Log.for_pattern(pname).yes.count
@@ -77,6 +78,7 @@ namespace :rec_logs do
       automatic_pv = Log.for_pattern(pname).automatic.count
 
       puts "Provided advices #{logs_pv}"
+      puts "Users touched #{logs_users}"
       puts "Accepted advices #{(accepted_pv.to_f / logs_pv * 100).round(2)}%"
       puts "Rejected advices #{(rejected_pv.to_f / logs_pv * 100).round(2)}%"
       puts "Reverted advices #{(reverted_pv.to_f / logs_pv * 100).round(2)}%"
