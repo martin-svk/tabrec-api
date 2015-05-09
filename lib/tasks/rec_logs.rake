@@ -2,6 +2,7 @@ namespace :rec_logs do
   desc 'Exploratory analysis of recommendation logs.'
   task :stats do
     users_count = User.count
+    active_users_count = Log.uniq.pluck(:user_id).count
     logs_count = Log.count
 
     accepted_count = Log.accepted.count
@@ -17,6 +18,8 @@ namespace :rec_logs do
     puts
 
     puts "Number of users in DB: #{users_count}"
+    puts "Number of active users in DB: #{active_users_count}"
+
     puts "Number of recommendation logs in DB: #{logs_count}"
     puts "Number of accepted advices in DB: #{accepted_count}"
     puts "Number of rejected advices in DB: #{rejected_count}"
@@ -27,7 +30,7 @@ namespace :rec_logs do
     puts '-----------   STATS   -------------'
     puts
 
-    puts "Average logs/user #{(logs_count.to_f / users_count).round(2)}"
+    puts "Average logs/user #{(logs_count.to_f / active_users_count).round(2)}"
     puts "Accepted advices #{(accepted_count.to_f / logs_count * 100).round(2)}%"
     puts "Rejected advices #{(rejected_count.to_f / logs_count * 100).round(2)}%"
     puts "Reverted advices #{(reverted_count.to_f / logs_count * 100).round(2)}%"

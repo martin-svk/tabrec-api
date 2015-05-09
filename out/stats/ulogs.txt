@@ -1,16 +1,92 @@
 ------------   BASICS   --------------
-Number of usage logs in DB: 876685
+
 Number of users in DB: 87
-Number of sessions in DB: 1476
-Example usage log: {"id"=>1, "user_id"=>"2f54319b-9882-4ae0-932f-cb4d442e8526", "event_id"=>2, "created_at"=>2015-03-01 15:48:37 UTC, "tab_id"=>89, "timestamp"=>1425225019464, "window_id"=>1, "index_from"=>nil, "index_to"=>nil, "url"=>nil, "session_id"=>"d36bf37d-5a27-4a72-b02f-9136fe3c1392", "domain"=>nil, "path"=>nil, "subdomain"=>nil}
------------   AVERAGES   -------------
-Average logs/user 10076
-Average logs/session 593
-------------   EVENTS   --------------
-ULogs for TAB_CREATED: 70798
-ULogs for TAB_REMOVED: 67514
-ULogs for TAB_ACTIVATED: 290032
-ULogs for TAB_MOVED: 7681
-ULogs for TAB_UPDATED: 439221
-ULogs for TAB_ATTACHED: 717
-ULogs for TAB_DETACHED: 722
+Number of active users in DB: 30
+Number of recommendation logs in DB: 1135
+Number of accepted advices in DB: 210
+Number of rejected advices in DB: 913
+Number of reverted advices in DB: 11
+Number of automatic advices in DB: 1
+
+-----------   STATS   -------------
+
+Average logs/user 37.83
+Accepted advices 18.5%
+Rejected advices 80.44%
+Reverted advices 0.97%
+Automatic advices 0.09%
+
+-----------   PATTERNS   -------------
+
+{"name"=>"MULTI_ACTIVATE", "sequence"=>"TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED", "desc"=>"User focused four tabs in a constant time gap.", "advice_name"=>"TAB_DOMAIN_SORT", "id"=>nil}
+{"name"=>"MULTI_ACTIVATE_V2", "sequence"=>"TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED", "desc"=>"User focused four tabs in a constant time gap (excluding some time after accepting).", "advice_name"=>"TAB_DOMAIN_SORT_V2", "id"=>nil}
+{"name"=>"MULTI_ACTIVATE_V3", "sequence"=>"TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED", "desc"=>"User focused four tabs (excluding tabs next to each other) in his running average time gap.", "advice_name"=>"TAB_DOMAIN_SORT_V2", "id"=>nil}
+{"name"=>"MULTI_ACTIVATE_V4", "sequence"=>"TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED", "desc"=>"User focused four tabs (at least three different tab ids) in thresholded running average time gap.", "advice_name"=>"TAB_DOMAIN_SORT_V2", "id"=>nil}
+{"name"=>"COMPARE_V0", "sequence"=>"TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED TAB_ACTIVATED", "desc"=>"User is swiching between two tabs (at least four activates) in thresholded running average time gap.", "advice_name"=>"NO_ADVICE", "id"=>nil}
+{"name"=>"REFRESH_V0", "sequence"=>"TAB_UPDATED TAB_UPDATED TAB_UPDATED", "desc"=>"User is monitoring (refreshing) specific tab three times in thresholded running average time gap.", "advice_name"=>"NO_ADVICE", "id"=>nil}
+{"name"=>"MULTI_CLOSE_V0", "sequence"=>"TAB_REMOVED TAB_REMOVED TAB_REMOVED TAB_REMOVED", "desc"=>"User closed four tabs consecutively (without other event interuption) in thresholded running average time gap.", "advice_name"=>"NO_ADVICE", "id"=>nil}
+
+-----------   ADVICES   -------------
+
+{"id"=>1, "name"=>"TAB_DOMAIN_SORT", "desc"=>"Will sort all opened tabs in current window by domain URLs"}
+{"id"=>2, "name"=>"TAB_DOMAIN_SORT_V2", "desc"=>"Will sort all opened tabs in current window by domain URLs and wait some time after execution and dont trigger again."}
+{"id"=>3, "name"=>"NO_ADVICE", "desc"=>"No action is performed"}
+
+---   STATS PER PATTERN VERSION   ---
+
+
+MULTI_ACTIVATE
+
+Provided advices 126
+Accepted advices 26.19%
+Rejected advices 73.81%
+Reverted advices 0.0%
+Automatic advices 0.0%
+
+MULTI_ACTIVATE_V2
+
+Provided advices 35
+Accepted advices 11.43%
+Rejected advices 85.71%
+Reverted advices 2.86%
+Automatic advices 0.0%
+
+MULTI_ACTIVATE_V3
+
+Provided advices 158
+Accepted advices 6.96%
+Rejected advices 91.14%
+Reverted advices 1.9%
+Automatic advices 0.0%
+
+MULTI_ACTIVATE_V4
+
+Provided advices 238
+Accepted advices 10.92%
+Rejected advices 85.71%
+Reverted advices 2.94%
+Automatic advices 0.42%
+
+COMPARE_V0
+
+Provided advices 371
+Accepted advices 15.36%
+Rejected advices 84.64%
+Reverted advices 0.0%
+Automatic advices 0.0%
+
+REFRESH_V0
+
+Provided advices 133
+Accepted advices 29.32%
+Rejected advices 70.68%
+Reverted advices 0.0%
+Automatic advices 0.0%
+
+MULTI_CLOSE_V0
+
+Provided advices 74
+Accepted advices 54.05%
+Rejected advices 45.95%
+Reverted advices 0.0%
+Automatic advices 0.0%

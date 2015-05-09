@@ -4,6 +4,7 @@ namespace :ulogs do
   desc 'Exploratory analysis of usage logs.'
   task :stats do
     users_count = User.count
+    active_users_count = UsageLog.uniq.pluck(:user_id).count
     ulogs_count = UsageLog.count
     sessions_count = UsageLog.select(:session_id).distinct.count
 
@@ -11,6 +12,7 @@ namespace :ulogs do
 
     puts "Number of usage logs in DB: #{ulogs_count}"
     puts "Number of users in DB: #{users_count}"
+    puts "Number of active users in DB: #{active_users_count}"
     puts "Number of sessions in DB: #{sessions_count}"
 
     ul = UsageLog.first
@@ -18,7 +20,7 @@ namespace :ulogs do
 
     puts '-----------   AVERAGES   -------------'
 
-    puts "Average logs/user #{ulogs_count / users_count}"
+    puts "Average logs/user #{ulogs_count / active_users_count}"
     puts "Average logs/session #{ulogs_count / sessions_count}"
 
     puts '------------   EVENTS   --------------'
