@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 # Ruby
-ruby '2.2.1'
+ruby '2.2.2'
 
 # Sinatra web framework
 gem 'sinatra', '~> 1.4.6'
