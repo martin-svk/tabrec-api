@@ -110,3 +110,6 @@ DEPENDENCIES
   sinatra-contrib (~> 1.4.2)
   thin (~> 1.6.3)
   tux (~> 0.3.0)
+
+BUNDLED WITH
+   1.10.1
