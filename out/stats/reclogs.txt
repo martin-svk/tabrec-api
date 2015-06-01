@@ -1,20 +1,20 @@
 ------------   BASICS   --------------
 
-Number of users in DB: 87
-Number of active users in DB: 30
-Number of recommendation logs in DB: 1135
-Number of accepted advices in DB: 210
-Number of rejected advices in DB: 913
+Number of users in DB: 97
+Number of active users in DB: 32
+Number of recommendation logs in DB: 1689
+Number of accepted advices in DB: 405
+Number of rejected advices in DB: 1272
 Number of reverted advices in DB: 11
 Number of automatic advices in DB: 1
 
 -----------   STATS   -------------
 
-Average logs/user 37.83
-Accepted advices 18.5%
-Rejected advices 80.44%
-Reverted advices 0.97%
-Automatic advices 0.09%
+Average logs/user 52.78
+Accepted advices 23.98%
+Rejected advices 75.31%
+Reverted advices 0.65%
+Automatic advices 0.06%
 
 -----------   PATTERNS   -------------
 
@@ -64,19 +64,19 @@ Automatic advices 0.0%
 
 MULTI_ACTIVATE_V4
 
-Provided advices 238
-Users touched 17
-Accepted advices 10.92%
-Rejected advices 85.71%
-Reverted advices 2.94%
-Automatic advices 0.42%
+Provided advices 294
+Users touched 20
+Accepted advices 11.9%
+Rejected advices 85.37%
+Reverted advices 2.38%
+Automatic advices 0.34%
 
 COMPARE_V0
 
-Provided advices 371
-Users touched 21
-Accepted advices 15.36%
-Rejected advices 84.64%
+Provided advices 817
+Users touched 24
+Accepted advices 25.58%
+Rejected advices 74.42%
 Reverted advices 0.0%
 Automatic advices 0.0%
 
@@ -91,9 +91,9 @@ Automatic advices 0.0%
 
 MULTI_CLOSE_V0
 
-Provided advices 74
-Users touched 14
-Accepted advices 54.05%
-Rejected advices 45.95%
+Provided advices 126
+Users touched 16
+Accepted advices 58.73%
+Rejected advices 41.27%
 Reverted advices 0.0%
 Automatic advices 0.0%

@@ -1,17 +1,17 @@
 ------------   BASICS   --------------
-Number of usage logs in DB: 876685
-Number of users in DB: 87
-Number of active users in DB: 41
-Number of sessions in DB: 1476
+Number of usage logs in DB: 1074932
+Number of users in DB: 97
+Number of active users in DB: 47
+Number of sessions in DB: 1814
 Example usage log: {"id"=>1, "user_id"=>"2f54319b-9882-4ae0-932f-cb4d442e8526", "event_id"=>2, "created_at"=>2015-03-01 15:48:37 UTC, "tab_id"=>89, "timestamp"=>1425225019464, "window_id"=>1, "index_from"=>nil, "index_to"=>nil, "url"=>nil, "session_id"=>"d36bf37d-5a27-4a72-b02f-9136fe3c1392", "domain"=>nil, "path"=>nil, "subdomain"=>nil}
 -----------   AVERAGES   -------------
-Average logs/user 21382
-Average logs/session 593
+Average logs/user 22870
+Average logs/session 592
 ------------   EVENTS   --------------
-ULogs for TAB_CREATED: 70798
-ULogs for TAB_REMOVED: 67514
-ULogs for TAB_ACTIVATED: 290032
-ULogs for TAB_MOVED: 7681
-ULogs for TAB_UPDATED: 439221
-ULogs for TAB_ATTACHED: 717
-ULogs for TAB_DETACHED: 722
+ULogs for TAB_CREATED: 86282 => 8.03%
+ULogs for TAB_REMOVED: 82458 => 7.67%
+ULogs for TAB_ACTIVATED: 351725 => 32.72%
+ULogs for TAB_UPDATED: 542847 => 50.5%
+ULogs for TAB_MOVED: 9915 => 0.92%
+ULogs for TAB_ATTACHED: 850 => 0.08%
+ULogs for TAB_DETACHED: 855 => 0.08%
